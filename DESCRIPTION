@@ -29,7 +29,6 @@ Imports:
     AcidGenerics (>= 0.4.0),
     S4Vectors,
     cgdsr,
-    tibble,
     cli (>= 2.0),
     cowplot (>= 1.0),
     ggplot2 (>= 3.3),
@@ -40,6 +39,7 @@ Imports:
     scales,
     stats,
     stringr (>= 1.4),
+    tibble,
     utils
 Suggests:
     BiocStyle,
