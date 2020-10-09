@@ -95,7 +95,8 @@ rnaSeqData <- function(
         FUN = function(
             cancerStudy,
             zscorePattern,
-            geneNames
+            geneNames,
+            cgds = .cgds()
         ) {
             caseList <- caseLists(cancerStudy = cancerStudy)
             caseListID <- grep(
@@ -140,7 +141,7 @@ rnaSeqData <- function(
                 geneticProfileID
             ))
             df <- getProfileData(
-                x = .cgds(),
+                x = cgds,
                 genes = geneNames,
                 caseList = caseListID,
                 geneticProfiles = geneticProfileID
