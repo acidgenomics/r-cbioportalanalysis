@@ -1,20 +1,16 @@
-#' Get available case lists for a specific cancer study
+#' Get available genetic data profiles for a specific cancer study
 #'
 #' @export
 #' @note Updated 2020-10-09.
-#'
-#' @param cancerStudy `character(1)`.
-#'   Cancer study ID.
-#'   Refer to [cancerStudies()] for details.
 #'
 #' @return `DataFrame`.
 #'
 #' @examples
 #' cancerStudy <- "ccle_broad_2019"
-#' x <- caseLists(cancerStudy = cancerStudy)
-caseLists <- function(cancerStudy) {
+#' x <- geneticProfiles(cancerStudy = cancerStudy)
+geneticProfiles <- function(cancerStudy) {
     assert(isString(cancerStudy))
-    x <- getCaseLists(
+    x <- getGeneticProfiles(
         x = .cgds(),
         cancerStudy = cancerStudy
     )

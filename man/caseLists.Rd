@@ -11,6 +11,9 @@ caseLists(cancerStudy)
 Cancer study ID.
 Refer to \code{\link[=cancerStudies]{cancerStudies()}} for details.}
 }
+\value{
+\code{DataFrame}.
+}
 \description{
 Get available case lists for a specific cancer study
 }
@@ -18,5 +21,6 @@ Get available case lists for a specific cancer study
 Updated 2020-10-09.
 }
 \examples{
-x <- caseLists(cancerStudy = "ccle_broad_2019")
+cancerStudy <- "ccle_broad_2019"
+x <- caseLists(cancerStudy = cancerStudy)
 }

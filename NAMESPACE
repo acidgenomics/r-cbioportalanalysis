@@ -2,10 +2,12 @@
 
 export(cancerStudies)
 export(caseLists)
+export(geneticProfiles)
 importFrom(basejump,camelCase)
 importFrom(cgdsr,CGDS)
 importFrom(cgdsr,getCancerStudies)
 importFrom(cgdsr,getCaseLists)
+importFrom(cgdsr,getGeneticProfiles)
 importFrom(goalie,assert)
 importFrom(goalie,isString)
 importFrom(methods,is)
