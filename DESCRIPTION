@@ -2,7 +2,7 @@ Package: cBioPortalAnalysis
 Title: cBioPortal Analysis Utilities
 Description: Toolkit for performing queries on cBioPortal.
 Version: 0.0.1
-Date: 2020-10-08
+Date: 2020-10-09
 Authors@R: c(
     person(
         given = "Michael",
