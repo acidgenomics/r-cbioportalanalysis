@@ -30,20 +30,14 @@ Imports:
     S4Vectors,
     cgdsr,
     cli (>= 2.0),
-    cowplot (>= 1.0),
     dplyr (>= 1.0),
-    ggplot2 (>= 3.3),
     goalie (>= 0.4.9),
-    knitr,
     methods,
     rlang (>= 0.4),
-    scales,
-    stats,
-    stringr (>= 1.4),
-    tibble,
-    utils
+    tibble
 Suggests:
     BiocStyle,
+    knitr,
     roxygen2,
     testthat
 biocViews:
