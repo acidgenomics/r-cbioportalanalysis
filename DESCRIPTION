@@ -2,7 +2,7 @@ Package: cBioPortalAnalysis
 Title: cBioPortal Analysis Utilities
 Description: Toolkit for performing queries on cBioPortal.
 Version: 0.0.1
-Date: 2020-10-08
+Date: 2020-10-09
 Authors@R: c(
     person(
         given = "Michael",
@@ -26,23 +26,18 @@ Depends:
     R (>= 4.0),
     basejump (>= 0.13.1)
 Imports:
-    AcidGenerics (>= 0.4.0),
+    BiocParallel,
     S4Vectors,
     cgdsr,
-    tibble,
     cli (>= 2.0),
-    cowplot (>= 1.0),
-    ggplot2 (>= 3.3),
+    dplyr (>= 1.0),
     goalie (>= 0.4.9),
-    knitr,
     methods,
     rlang (>= 0.4),
-    scales,
-    stats,
-    stringr (>= 1.4),
-    utils
+    tibble
 Suggests:
     BiocStyle,
+    knitr,
     roxygen2,
     testthat
 biocViews:
