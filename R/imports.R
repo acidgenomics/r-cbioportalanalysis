@@ -1,3 +1,4 @@
+#' @importFrom BiocParallel bplapply
 #' @importFrom basejump as_tibble camelCase
 #' @importFrom cgdsr CGDS getCancerStudies getCaseLists getGeneticProfiles
 #'   getProfileData

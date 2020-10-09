@@ -63,6 +63,8 @@
 #' @examples
 #' cancerStudies <- c("acc_tcga_pan_can_atlas_2018", "ccle_broad_2019")
 #' geneNames <- c("MYC", "TP53")
+#' df <- rnaSeqData(cancerStudies = cancerStudies, geneNames = geneNames)
+#' print(df)
 rnaSeqData <- function(
     cancerStudies,
     geneNames,
@@ -86,7 +88,7 @@ rnaSeqData <- function(
         "all samples" = "_rna_seq(_v2)?_mrna_median_all_sample_Zscores$",
         "diploid samples" = "_rna_seq(_v2)?_mrna_median_Zscores$"
     )
-    list <- lapply(
+    list <- bplapply(
         X = cancerStudies,
         zscorePattern = zscorePattern,
         geneNames = geneNames,

@@ -81,4 +81,6 @@ https://github.com/cBioPortal/cbioportal/blob/master/docs/Z-Score-normalization-
 \examples{
 cancerStudies <- c("acc_tcga_pan_can_atlas_2018", "ccle_broad_2019")
 geneNames <- c("MYC", "TP53")
+df <- rnaSeqData(cancerStudies = cancerStudies, geneNames = geneNames)
+print(df)
 }
