@@ -38,6 +38,8 @@
 
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Get normalized RNA-seq expression data — rnaSeqData" />
 <meta property="og:description" content="Get normalized RNA-seq expression data" />
@@ -93,6 +95,12 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="https://acidgenomics.com/">
+    <span class="fas fa fas fa-vial fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="https://github.com/acidgenomics/cBioPortalAnalysis/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
@@ -136,6 +144,11 @@ Cancer study IDs.
 See <code><a href='cancerStudies.html'>cancerStudies()</a></code> for details.</p></td>
     </tr>
     <tr>
+      <th>geneNames</th>
+      <td><p><code>character</code>.
+HUGO gene symbols (e.g. "TP53").</p></td>
+    </tr>
+    <tr>
       <th>zscore</th>
       <td><p><code>character</code>.</p><ul>
 <li><p><code>"all samples"</code>:
@@ -147,11 +160,6 @@ mRNA expression z-Scores relative to diploid samples (RNA Seq RPKM).
 mRNA z-Scores (RNA Seq RPKM) compared to the expression distribution of
 each gene tumors that are diploid for this gene.</p></li>
 </ul></td>
-    </tr>
-    <tr>
-      <th>geneName</th>
-      <td><p><code>character</code>.
-HUGO gene symbols (e.g. "TP53").</p></td>
     </tr>
     </table>
 
@@ -239,7 +247,7 @@ https://github.com/cBioPortal/cbioportal/blob/master/docs/Z-Score-normalization-
 
       <footer>
       <div class="copyright">
-  <p>Developed by Michael Steinbaugh, Acid Genomics.</p>
+  <p>Developed by <a href='https://steinbaugh.com/'>Michael Steinbaugh</a>, <a href='https://acidgenomics.com/'>Acid Genomics</a>.</p>
 </div>
 
 <div class="pkgdown">

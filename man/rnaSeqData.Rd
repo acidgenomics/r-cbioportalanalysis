@@ -15,6 +15,9 @@ rnaSeqData(
 Cancer study IDs.
 See \code{\link[=cancerStudies]{cancerStudies()}} for details.}
 
+\item{geneNames}{\code{character}.
+HUGO gene symbols (e.g. "TP53").}
+
 \item{zscore}{\code{character}.
 \itemize{
 \item \code{"all samples"}:
@@ -26,9 +29,6 @@ mRNA expression z-Scores relative to diploid samples (RNA Seq RPKM).
 mRNA z-Scores (RNA Seq RPKM) compared to the expression distribution of
 each gene tumors that are diploid for this gene.
 }}
-
-\item{geneName}{\code{character}.
-HUGO gene symbols (e.g. "TP53").}
 }
 \value{
 \code{DataFrame}.

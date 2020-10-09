@@ -45,7 +45,7 @@
 #' @param cancerStudies `character`.
 #'   Cancer study IDs.
 #'   See [cancerStudies()] for details.
-#' @param geneName `character`.
+#' @param geneNames `character`.
 #'   HUGO gene symbols (e.g. "TP53").
 #' @param zscore `character`.
 #'   - `"all samples"`:
