@@ -3,6 +3,8 @@
 #' @export
 #' @note Updated 2020-10-09.
 #'
+#' @inheritParams params
+#'
 #' @return `DataFrame`.
 #'
 #' @examples

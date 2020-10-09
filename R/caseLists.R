@@ -3,9 +3,7 @@
 #' @export
 #' @note Updated 2020-10-09.
 #'
-#' @param cancerStudy `character(1)`.
-#'   Cancer study ID.
-#'   Refer to [cancerStudies()] for details.
+#' @inheritParams params
 #'
 #' @return `DataFrame`.
 #'
