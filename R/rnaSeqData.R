@@ -57,8 +57,7 @@
 #'     mRNA z-Scores (RNA Seq RPKM) compared to the expression distribution of
 #'     each gene tumors that are diploid for this gene.
 #'
-#' @return `grouped_df`.
-#'   Tibbled grouped by `cancerStudy`.
+#' @return `DataFrame`.
 #'
 #' @examples
 #' cancerStudies <- c("acc_tcga_pan_can_atlas_2018", "ccle_broad_2019")
@@ -153,9 +152,8 @@ rnaSeqData <- function(
         }
     )
     df <- do.call(what = bind_rows, args = unname(list))
-    df <- as_tibble(df)
     df <- select(df, !!!syms(c("cancerStudy", "sampleID")), everything())
     df <- arrange_all(df)
-    df <- group_by(df, !!sym("cancerStudy"))
+    df <- as(df, "DataFrame")
     df
 }

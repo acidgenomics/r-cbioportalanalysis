@@ -31,8 +31,7 @@ each gene tumors that are diploid for this gene.
 HUGO gene symbols (e.g. "TP53").}
 }
 \value{
-\code{grouped_df}.
-Tibbled grouped by \code{cancerStudy}.
+\code{DataFrame}.
 }
 \description{
 Get normalized RNA-seq expression data
