@@ -1,8 +1,3 @@
-.getCaseLists <- function(cancerStudy) {
-
-}
-
-
 #' Get available case lists for a specific cancer study
 #'
 #' @export
