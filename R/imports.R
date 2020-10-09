@@ -1,6 +1,5 @@
 #' @importMethodsFrom S4Vectors coerce
 #'
-#' @importFrom BiocParallel bplapply
 #' @importFrom basejump camelCase
 #' @importFrom cgdsr CGDS getCancerStudies getCaseLists getGeneticProfiles
 #'   getProfileData

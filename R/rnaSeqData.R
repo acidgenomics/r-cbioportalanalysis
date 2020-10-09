@@ -87,7 +87,7 @@ rnaSeqData <- function(
         "all samples" = "_rna_seq(_v2)?_mrna_median_all_sample_Zscores$",
         "diploid samples" = "_rna_seq(_v2)?_mrna_median_Zscores$"
     )
-    list <- bplapply(
+    list <- lapply(
         X = cancerStudies,
         zscorePattern = zscorePattern,
         geneNames = geneNames,

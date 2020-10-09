@@ -208,34 +208,34 @@ https://github.com/cBioPortal/cbioportal/blob/master/docs/Z-Score-normalization-
     <pre class="examples"><div class='input'><span class='va'>cancerStudies</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"acc_tcga_pan_can_atlas_2018"</span>, <span class='st'>"ccle_broad_2019"</span><span class='op'>)</span>
 <span class='va'>geneNames</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MYC"</span>, <span class='st'>"TP53"</span><span class='op'>)</span>
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>rnaSeqData</span><span class='op'>(</span>cancerStudies <span class='op'>=</span> <span class='va'>cancerStudies</span>, geneNames <span class='op'>=</span> <span class='va'>geneNames</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>→ Importing RNA-seq data: <span style='color: #000000;background-color: #BBBBBB;'>`acc_tcga_pan_can_atlas_2018_rna_seq_v2_mrna_median_all_sample_Zscores`</span><span>.</span></div><div class='output co'>#&gt; <span class='message'>→ Importing RNA-seq data: </span><span style='color: #000000;background-color: #BBBBBB;'>`ccle_broad_2019_rna_seq_mrna_median_all_sample_Zscores`</span><span>.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; DataFrame with 1234 rows and 4 columns
-#&gt;                      cancerStudy                     sampleID       MYC
-#&gt;                      &lt;character&gt;                  &lt;character&gt; &lt;logical&gt;
-#&gt; 1    acc_tcga_pan_can_atlas_2018                   A101D_SKIN        NA
-#&gt; 2    acc_tcga_pan_can_atlas_2018 A1207_CENTRAL_NERVOUS_SYSTEM        NA
-#&gt; 3    acc_tcga_pan_can_atlas_2018  A172_CENTRAL_NERVOUS_SYSTEM        NA
-#&gt; 4    acc_tcga_pan_can_atlas_2018             A204_SOFT_TISSUE        NA
-#&gt; 5    acc_tcga_pan_can_atlas_2018                   A2058_SKIN        NA
-#&gt; ...                          ...                          ...       ...
-#&gt; 1230             ccle_broad_2019              TCGA.PA.A5YG.01        NA
-#&gt; 1231             ccle_broad_2019              TCGA.PK.A5H8.01        NA
-#&gt; 1232             ccle_broad_2019              TCGA.PK.A5H9.01        NA
-#&gt; 1233             ccle_broad_2019              TCGA.PK.A5HA.01        NA
-#&gt; 1234             ccle_broad_2019              TCGA.PK.A5HB.01        NA
+#&gt;                      cancerStudy                      sampleID       MYC
+#&gt;                      &lt;character&gt;                   &lt;character&gt; &lt;numeric&gt;
+#&gt; 1    acc_tcga_pan_can_atlas_2018               TCGA.OR.A5J1.01   -0.2656
+#&gt; 2    acc_tcga_pan_can_atlas_2018               TCGA.OR.A5J2.01    0.5668
+#&gt; 3    acc_tcga_pan_can_atlas_2018               TCGA.OR.A5J3.01   -0.4335
+#&gt; 4    acc_tcga_pan_can_atlas_2018               TCGA.OR.A5J5.01   -0.2846
+#&gt; 5    acc_tcga_pan_can_atlas_2018               TCGA.OR.A5J6.01    0.0136
+#&gt; ...                          ...                           ...       ...
+#&gt; 1230             ccle_broad_2019 YD8_UPPER_AERODIGESTIVE_TRACT   -0.4368
+#&gt; 1231             ccle_broad_2019   YH13_CENTRAL_NERVOUS_SYSTEM   -0.9147
+#&gt; 1232             ccle_broad_2019   YKG1_CENTRAL_NERVOUS_SYSTEM   -1.0933
+#&gt; 1233             ccle_broad_2019                  ZR751_BREAST    0.1006
+#&gt; 1234             ccle_broad_2019                 ZR7530_BREAST    0.1984
 #&gt;           TP53
-#&gt;      &lt;logical&gt;
-#&gt; 1           NA
-#&gt; 2           NA
-#&gt; 3           NA
-#&gt; 4           NA
-#&gt; 5           NA
+#&gt;      &lt;numeric&gt;
+#&gt; 1      -0.6076
+#&gt; 2      -3.1219
+#&gt; 3       0.4805
+#&gt; 4       0.8948
+#&gt; 5      -0.8847
 #&gt; ...        ...
-#&gt; 1230        NA
-#&gt; 1231        NA
-#&gt; 1232        NA
-#&gt; 1233        NA
-#&gt; 1234        NA</div></pre>
+#&gt; 1230    1.1431
+#&gt; 1231   -0.3186
+#&gt; 1232    0.8817
+#&gt; 1233   -0.4317
+#&gt; 1234   -0.2574</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
