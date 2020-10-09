@@ -32,7 +32,7 @@ HUGO gene symbols (e.g. "TP53").}
 }
 \value{
 \code{grouped_df}.
-Tibbled grouped by \code{cancerStudy} and \code{sampleID} columns.
+Tibbled grouped by \code{cancerStudy}.
 }
 \description{
 Get normalized RNA-seq expression data

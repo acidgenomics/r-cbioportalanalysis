@@ -58,7 +58,7 @@
 #'     each gene tumors that are diploid for this gene.
 #'
 #' @return `grouped_df`.
-#'   Tibbled grouped by `cancerStudy` and `sampleID` columns.
+#'   Tibbled grouped by `cancerStudy`.
 #'
 #' @examples
 #' cancerStudies <- c("acc_tcga_pan_can_atlas_2018", "ccle_broad_2019")
@@ -113,9 +113,9 @@ rnaSeqData <- function(
             }
             ## Get mRNA expression.
             prof <- geneticProfiles(cancerStudy = cancerStudy)
-            keep <- str_detect(
-                string = prof[["geneticProfileID"]],
-                pattern = zscorePattern
+            keep <- grepl(
+                pattern = zscorePattern,
+                x = prof[["geneticProfileID"]]
             )
             if (!any(keep)) {
                 cli_alert_warning(sprintf(

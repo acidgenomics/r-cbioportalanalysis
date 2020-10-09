@@ -26,7 +26,6 @@ Depends:
     R (>= 4.0),
     basejump (>= 0.13.1)
 Imports:
-    AcidGenerics (>= 0.4.0),
     BiocParallel,
     S4Vectors,
     cgdsr,
