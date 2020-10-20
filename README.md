@@ -2,7 +2,22 @@
 
 Toolkit for performing queries on [cBioPortal][].
 
-[cbioportal]: https://www.cbioportal.org/
+## Installation
+
+### [R][] method
+
+```r
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+    install.packages("BiocManager")
+}
+install.packages(
+    pkgs = "cBioPortalAnalysis",
+    repos = c(
+        "r.acidgenomics.com",
+        BiocManager::repositories()
+    )
+)
+```
 
 ## Details
 
@@ -11,5 +26,7 @@ Toolkit for performing queries on [cBioPortal][].
 
 Currently using [cgdsr][] internally, but am evaluating the new [cBioPortalData][] package for inclusion in a future release.
 
+[cbioportal]: https://www.cbioportal.org/
 [cbioportaldata]: https://bioconductor.org/packages/cBioPortalData/
 [cgdsr]: https://cran.r-project.org/package=cgdsr
+[r]: https://www.r-project.org/
