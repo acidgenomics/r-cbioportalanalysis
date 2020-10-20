@@ -1,4 +1,5 @@
 os: linux
+arch: arm64-graviton2
 language: shell
 
 services:
@@ -15,10 +16,10 @@ jobs:
   include:
     - stage: test
       name: "bioc-release"
-      script: image="acidgenomics/r-rnaseq" tag="bioc-release" ./.Rcheck/docker
+      script: tag="bioc-release" ./.Rcheck/docker
     - stage: test
       name: "bioc-devel"
-      script: image="acidgenomics/r-rnaseq" tag="bioc-devel" ./.Rcheck/docker
+      script: tag="bioc-devel" ./.Rcheck/docker
   allow_failures:
     - name: "bioc-devel"
   fast_finish: true
