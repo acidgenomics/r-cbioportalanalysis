@@ -1,3 +1,9 @@
+## FIXME HOW TO RETURN ALL GENE EXPRESSION FOR THE STUDY?
+## FIXME RETURN AS SUMMARIZED EXPERIMENT, WITH SAMPLES IN COLUMNS AND GENES
+## IN THE ROWS...
+
+
+
 #' Get normalized RNA-seq expression data
 #'
 #' @export
@@ -153,5 +159,6 @@ rnaSeqData <- function(
     )
     x <- do.call(what = rbind, args = unname(list))
     x <- as.matrix(x)
+    rownames(x) <- snakeCase(tolower(rownames(x)))
     x
 }

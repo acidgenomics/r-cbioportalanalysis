@@ -5,9 +5,10 @@
 #' @importMethodsFrom basejump coerce
 #'
 #' @importFrom basejump alert alertWarning camelCase do.call lapply rbind
+#'   sanitizeNA snakeCase
 #' @importFrom cgdsr CGDS getCancerStudies getCaseLists getGeneticProfiles
 #'   getProfileData
-#' @importFrom goalie assert hasRownames isCharacter isString
+#' @importFrom goalie assert hasRownames isCharacter isInt isString isSubset
 #' @importFrom methods as is
 "_PACKAGE"
 
