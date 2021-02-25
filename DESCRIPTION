@@ -1,8 +1,8 @@
 Package: cBioPortalAnalysis
 Title: cBioPortal Analysis Utilities
 Description: Toolkit for performing queries on cBioPortal.
-Version: 0.0.1
-Date: 2020-10-09
+Version: 0.0.2
+Date: 2021-02-25
 Authors@R: c(
     person(
         given = "Michael",
@@ -19,25 +19,22 @@ URL:
     https://cbioportalanalysis.acidgenomics.com/,
     https://github.com/acidgenomics/cBioPortalAnalysis/
 BugReports: https://github.com/acidgenomics/cBioPortalAnalysis/issues/
-License: GPL-3
+License: AGPL-3
 Encoding: UTF-8
 LazyData: false
 Depends:
     R (>= 4.0),
-    basejump (>= 0.13.1)
+    basejump (>= 0.14.4)
 Imports:
     S4Vectors,
     cgdsr,
     cli (>= 2.0),
     dplyr (>= 1.0),
-    goalie (>= 0.4.9),
+    goalie (>= 0.5.0),
     methods,
     rlang (>= 0.4),
     tibble
 Suggests:
-    BiocStyle,
-    knitr,
-    roxygen2,
     testthat
 biocViews:
     DataRepresentation,
@@ -47,5 +44,4 @@ biocViews:
     Visualization
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-VignetteBuilder: knitr
 Additional_repositories: https://r.acidgenomics.com
