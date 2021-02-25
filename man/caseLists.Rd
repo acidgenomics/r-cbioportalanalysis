@@ -26,5 +26,7 @@ x <- caseLists(cancerStudy = cancerStudy)
 print(x)
 }
 \seealso{
-\code{\link[=cancerStudies]{cancerStudies()}}.
+\itemize{
+\item \code{\link[=cancerStudies]{cancerStudies()}}.
+}
 }

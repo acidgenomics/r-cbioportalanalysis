@@ -23,5 +23,6 @@ cancerStudies <- function() {
         y = c("cancerStudyId", "name", "description")
     ))
     x <- as(x, "DataFrame")
+    rownames(x) <- x[["cancerStudyId"]]
     x
 }
