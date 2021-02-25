@@ -1,7 +1,3 @@
-## FIXME Can we remove dependence on dplyr, rlang, and tibble here?
-
-
-
 #' cBioPortalAnalysis
 #'
 #' Toolkit for performing queries on cBioPortal.
@@ -11,11 +7,8 @@
 #' @importFrom basejump alert alertWarning camelCase do.call lapply rbind
 #' @importFrom cgdsr CGDS getCancerStudies getCaseLists getGeneticProfiles
 #'   getProfileData
-#' @importFrom dplyr arrange_all bind_rows everything select
 #' @importFrom goalie assert hasRownames isCharacter isString
 #' @importFrom methods as is
-#' @importFrom rlang !!! !! sym syms
-#' @importFrom tibble rownames_to_column
 "_PACKAGE"
 
 
