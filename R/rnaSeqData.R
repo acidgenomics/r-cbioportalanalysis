@@ -67,12 +67,12 @@
 #' ## ACC TCGA 2018 ====
 #' cancerStudy <- "acc_tcga_pan_can_atlas_2018"
 #' x <- rnaSeqData(cancerStudy = cancerStudy, geneNames = geneNames)
-#' head(x)
+#' print(x)
 #'
 #' ## CCLE Broad 2019 ====
 #' cancerStudy <- "ccle_broad_2019"
 #' x <- rnaSeqData(cancerStudy = cancerStudy, geneNames = geneNames)
-#' head(x)
+#' print(x)
 rnaSeqData <- function(
     cancerStudy,
     geneNames,
@@ -166,6 +166,8 @@ rnaSeqData <- function(
         isSubset(rownames(colData), colnames(counts))
     )
     colData <- colData[colnames(counts), , drop = FALSE]
+    ## FIXME DONT BLACKLIST ANY COLUMNS??? NAME IS DEFINED HERE FOR CCLE...
+    ## FIXME THIS IS HARD CODED INTO FUNCTION...NEED TO BE ABLE TO OVERRIDE...
     makeSummarizedExperiment(
         assays = list("counts" = counts),
         colData = colData,

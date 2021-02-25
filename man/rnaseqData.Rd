@@ -87,10 +87,10 @@ geneNames <- c("MYC", "TP53")
 ## ACC TCGA 2018 ====
 cancerStudy <- "acc_tcga_pan_can_atlas_2018"
 x <- rnaSeqData(cancerStudy = cancerStudy, geneNames = geneNames)
-head(x)
+print(x)
 
 ## CCLE Broad 2019 ====
 cancerStudy <- "ccle_broad_2019"
 x <- rnaSeqData(cancerStudy = cancerStudy, geneNames = geneNames)
-head(x)
+print(x)
 }
