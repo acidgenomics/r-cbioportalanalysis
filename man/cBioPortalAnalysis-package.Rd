@@ -11,9 +11,9 @@ Toolkit for performing queries on cBioPortal.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://cbioportalanalysis.acidgenomics.com/}
-  \item \url{https://github.com/acidgenomics/cBioPortalAnalysis/}
-  \item Report bugs at \url{https://github.com/acidgenomics/cBioPortalAnalysis/issues/}
+  \item \url{https://r.acidgenomics.com/packages/cbioportalanalysis/}
+  \item \url{https://github.com/acidgenomics/r-cbioportalanalysis/}
+  \item Report bugs at \url{https://github.com/acidgenomics/r-cbioportalanalysis/issues/}
 }
 
 }

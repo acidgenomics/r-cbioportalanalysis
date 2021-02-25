@@ -16,9 +16,9 @@ Authors@R: c(
         role = c("cph", "fnd")
     ))
 URL:
-    https://cbioportalanalysis.acidgenomics.com/,
-    https://github.com/acidgenomics/cBioPortalAnalysis/
-BugReports: https://github.com/acidgenomics/cBioPortalAnalysis/issues/
+    https://r.acidgenomics.com/packages/cbioportalanalysis/,
+    https://github.com/acidgenomics/r-cbioportalanalysis/
+BugReports: https://github.com/acidgenomics/r-cbioportalanalysis/issues/
 License: AGPL-3
 Encoding: UTF-8
 LazyData: false
