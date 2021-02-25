@@ -27,7 +27,6 @@ Depends:
     basejump (>= 0.14.4)
 Imports:
     cgdsr,
-    cli (>= 2.0),
     dplyr (>= 1.0),
     goalie (>= 0.5.0),
     methods,
