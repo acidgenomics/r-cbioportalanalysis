@@ -5,14 +5,14 @@
 \title{Get normalized RNA-seq expression data}
 \usage{
 rnaSeqData(
-  cancerStudies,
+  cancerStudy,
   geneNames,
   zscore = c("all samples", "diploid samples")
 )
 }
 \arguments{
-\item{cancerStudies}{\code{character}.
-Cancer study IDs.
+\item{cancerStudy}{\code{character(1)}.
+Cancer study identifier (e.g. ""acc_tcga_pan_can_atlas_2018").
 See \code{\link[=cancerStudies]{cancerStudies()}} for details.}
 
 \item{geneNames}{\code{character}.
@@ -31,7 +31,8 @@ each gene tumors that are diploid for this gene.
 }}
 }
 \value{
-\code{matrix}.
+\code{SummarizedExperiment}.
+Samples (e.g. patient tumors) in the columns and genes in the rows.
 }
 \description{
 Get normalized RNA-seq expression data
@@ -81,8 +82,15 @@ Z-Score-normalization-script.md
 }
 
 \examples{
-cancerStudies <- c("acc_tcga_pan_can_atlas_2018", "ccle_broad_2019")
 geneNames <- c("MYC", "TP53")
-x <- rnaSeqData(cancerStudies = cancerStudies, geneNames = geneNames)
+
+## ACC TCGA 2018 ====
+cancerStudy <- "acc_tcga_pan_can_atlas_2018"
+x <- rnaSeqData(cancerStudy = cancerStudy, geneNames = geneNames)
+head(x)
+
+## CCLE Broad 2019 ====
+cancerStudy <- "ccle_broad_2019"
+x <- rnaSeqData(cancerStudy = cancerStudy, geneNames = geneNames)
 head(x)
 }
