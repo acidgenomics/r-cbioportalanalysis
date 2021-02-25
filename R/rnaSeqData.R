@@ -68,7 +68,7 @@
 #'
 #' @examples
 #' cancerStudies <- c("acc_tcga_pan_can_atlas_2018", "ccle_broad_2019")
-#' geneNames <- c("MYC", "TP53")
+#' geneNames <- c("myc", "tp53")
 #' x <- rnaSeqData(cancerStudies = cancerStudies, geneNames = geneNames)
 #' head(x)
 rnaSeqData <- function(
@@ -94,7 +94,7 @@ rnaSeqData <- function(
     list <- lapply(
         X = cancerStudies,
         zscorePattern = zscorePattern,
-        geneNames = geneNames,
+        geneNames = toupper(geneNames),
         FUN = function(
             cancerStudy,
             zscorePattern,
@@ -160,5 +160,6 @@ rnaSeqData <- function(
     x <- do.call(what = rbind, args = unname(list))
     x <- as.matrix(x)
     rownames(x) <- snakeCase(tolower(rownames(x)))
+    colnames(x) <- snakeCase(tolower(colnames(x)))
     x
 }

@@ -82,7 +82,7 @@ Z-Score-normalization-script.md
 
 \examples{
 cancerStudies <- c("acc_tcga_pan_can_atlas_2018", "ccle_broad_2019")
-geneNames <- c("MYC", "TP53")
+geneNames <- c("myc", "tp53")
 x <- rnaSeqData(cancerStudies = cancerStudies, geneNames = geneNames)
 head(x)
 }

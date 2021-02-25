@@ -8,8 +8,8 @@
 #'   lapply rbind sanitizeNA snakeCase sort unique
 #' @importFrom cgdsr CGDS getCancerStudies getCaseLists getGeneticProfiles
 #'   getProfileData
-#' @importFrom goalie assert hasColnames hasRownames hasRows isCharacter isInt
-#'   isString isSubset
+#' @importFrom goalie assert hasColnames hasNoDuplicates hasRownames hasRows
+#'   isCharacter isInt isString isSubset
 #' @importFrom methods as is
 "_PACKAGE"
 
