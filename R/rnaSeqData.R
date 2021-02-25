@@ -1,3 +1,4 @@
+## FIXME HOW TO SUPPORT ALL GENES?
 ## FIXME HOW TO RETURN ALL GENE EXPRESSION FOR THE STUDY?
 ## FIXME RETURN AS SUMMARIZED EXPERIMENT, WITH SAMPLES IN COLUMNS AND GENES
 ## IN THE ROWS...
@@ -68,7 +69,7 @@
 #'
 #' @examples
 #' cancerStudies <- c("acc_tcga_pan_can_atlas_2018", "ccle_broad_2019")
-#' geneNames <- c("myc", "tp53")
+#' geneNames <- c("MYC", "TP53")
 #' x <- rnaSeqData(cancerStudies = cancerStudies, geneNames = geneNames)
 #' head(x)
 rnaSeqData <- function(
@@ -78,7 +79,9 @@ rnaSeqData <- function(
 ) {
     assert(
         isCharacter(cancerStudies),
-        isCharacter(geneNames)
+        hasNoDuplicates(cancerStudies),
+        isCharacter(geneNames),
+        hasNoDuplicates(geneNames)
     )
     zscore <- match.arg(zscore)
     ## RNA-seq:
@@ -94,20 +97,20 @@ rnaSeqData <- function(
     list <- lapply(
         X = cancerStudies,
         zscorePattern = zscorePattern,
-        geneNames = toupper(geneNames),
+        geneNames = geneNames,
         FUN = function(
             cancerStudy,
             zscorePattern,
             geneNames,
             cgds = .cgds()
         ) {
-            caseList <- caseLists(cancerStudy = cancerStudy)
-            caseListId <- grep(
+            cl <- caseLists(cancerStudy = cancerStudy)
+            caseList <- grep(
                 pattern = "_rna_seq(_v2)?_mrna$",
-                x = caseList[["caseListId"]],
+                x = cl[["caseListId"]],
                 value = TRUE
             )
-            if (!isString(caseListId)) {
+            if (!isString(caseList)) {
                 alertWarning(sprintf(
                     "No RNA-seq data: {.var %s}.",
                     cancerStudy
@@ -138,16 +141,16 @@ rnaSeqData <- function(
                     y = "true"
                 )
             )
-            geneticProfileId <- prof[["geneticProfileId"]]
+            geneticProfiles <- prof[["geneticProfileId"]]
             alert(sprintf(
                 "Importing RNA-seq data: {.var %s}.",
-                geneticProfileId
+                geneticProfiles
             ))
             df <- getProfileData(
                 x = cgds,
                 genes = geneNames,
-                caseList = caseListId,
-                geneticProfiles = geneticProfileId
+                caseList = caseList,
+                geneticProfiles = geneticProfiles
             )
             assert(
                 is.data.frame(df),
@@ -159,7 +162,7 @@ rnaSeqData <- function(
     )
     x <- do.call(what = rbind, args = unname(list))
     x <- as.matrix(x)
-    rownames(x) <- snakeCase(tolower(rownames(x)))
-    colnames(x) <- snakeCase(tolower(colnames(x)))
+    rownames(x) <- makeNames(rownames(x))
+    colnames(x) <- makeNames(colnames(x))
     x
 }

@@ -32,7 +32,7 @@ clinicalData <- function(caseList) {
     )
     assert(is.data.frame(x))
     assert(hasNoDuplicates(rownames(x)))
-    rownames(x) <- snakeCase(tolower(rownames(x)))
+    rownames(x) <- makeNames(rownames(x))
     colnames(x) <- camelCase(colnames(x), strict = TRUE)
     x <- sanitizeNA(x)
     x <- as(x, "DataFrame")

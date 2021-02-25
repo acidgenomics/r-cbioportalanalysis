@@ -5,7 +5,7 @@
 #' @importMethodsFrom basejump coerce
 #'
 #' @importFrom basejump CharacterList alert alertWarning camelCase do.call
-#'   lapply rbind sanitizeNA snakeCase sort unique
+#'   lapply makeNames rbind sanitizeNA sort unique
 #' @importFrom cgdsr CGDS getCancerStudies getCaseLists getGeneticProfiles
 #'   getProfileData
 #' @importFrom goalie assert hasColnames hasNoDuplicates hasRownames hasRows
