@@ -4,12 +4,12 @@
 \alias{clinicalData}
 \title{Get available clinical data for samples in a case list}
 \usage{
-clinicalData(cancerStudy, caseList)
+clinicalData(caseList)
 }
 \arguments{
-\item{cancerStudy}{\code{character(1)}.
-Cancer study ID.
-Refer to \code{\link[=cancerStudies]{cancerStudies()}} for details.}
+\item{caseList}{\code{character(1)}.
+Case list identifier (e.g. "ccle_broad_2019_sequenced").
+Refer to \code{\link[=caseLists]{caseLists()}} for details.}
 }
 \value{
 \code{DataFrame}.
@@ -21,8 +21,17 @@ Get available clinical data for samples in a case list
 Updated 2021-02-25.
 }
 \examples{
-cancerStudy <- "dlbc_tcga_pan_can_atlas_2018"
-caseList <- "dlbc_tcga_pan_can_atlas_2018_rna_seq_v2_mrna"
-x <- clinicalData(cancerStudy = cancerStudy, caseList = caseListID)
+## DLBCL TCGA ====
+x <- clinicalData(caseList = "dlbc_tcga_pan_can_atlas_2018_rna_seq_v2_mrna")
 print(x)
+
+## CCLE Broad 2019 ====
+x <- clinicalData(caseList = "ccle_broad_2019_sequenced")
+print(x)
+}
+\seealso{
+\itemize{
+\item \code{\link[=caseLists]{caseLists()}}.
+\item \code{\link[=cancerStudies]{cancerStudies()}}.
+}
 }

@@ -8,7 +8,7 @@ caseLists(cancerStudy)
 }
 \arguments{
 \item{cancerStudy}{\code{character(1)}.
-Cancer study ID.
+Cancer study identifier (e.g. "ccle_broad_2019").
 Refer to \code{\link[=cancerStudies]{cancerStudies()}} for details.}
 }
 \value{
@@ -24,4 +24,7 @@ Updated 2021-02-25.
 cancerStudy <- "ccle_broad_2019"
 x <- caseLists(cancerStudy = cancerStudy)
 print(x)
+}
+\seealso{
+\code{\link[=cancerStudies]{cancerStudies()}}.
 }

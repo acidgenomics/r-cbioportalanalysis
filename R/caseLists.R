@@ -7,6 +7,8 @@
 #'
 #' @return `DataFrame`.
 #'
+#' @seealso [cancerStudies()].
+#'
 #' @examples
 #' cancerStudy <- "ccle_broad_2019"
 #' x <- caseLists(cancerStudy = cancerStudy)
@@ -17,6 +19,7 @@ caseLists <- function(cancerStudy) {
         x = .cgds(),
         cancerStudy = cancerStudy
     )
+    ## FIXME NEED TO CHECK FOR MATCH FAILURE...
     assert(is.data.frame(x))
     colnames(x) <- camelCase(colnames(x), strict = TRUE)
     x <- as(x, "DataFrame")
