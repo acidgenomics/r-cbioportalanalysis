@@ -17,7 +17,7 @@ geneticProfiles <- function(cancerStudy) {
         cancerStudy = cancerStudy
     )
     assert(is.data.frame(x))
-    colnames(x) <- camelCase(colnames(x))
+    colnames(x) <- camelCase(colnames(x), strict = TRUE)
     x <- as(x, "DataFrame")
     x
 }

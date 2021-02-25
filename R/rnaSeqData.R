@@ -1,7 +1,7 @@
 #' Get normalized RNA-seq expression data
 #'
 #' @export
-#' @note Updated 2020-10-09.
+#' @note Updated 2021-02-25.
 #'
 #' @details
 #' Examples of cancer studies with different mRNA data types:
@@ -99,13 +99,13 @@ rnaSeqData <- function(
             cgds = .cgds()
         ) {
             caseList <- caseLists(cancerStudy = cancerStudy)
-            caseListID <- grep(
+            caseListId <- grep(
                 pattern = "_rna_seq(_v2)?_mrna$",
-                x = caseList[["caseListID"]],
+                x = caseList[["caseListId"]],
                 value = TRUE
             )
-            if (!isString(caseListID)) {
-                cli_alert_warning(sprintf(
+            if (!isString(caseListId)) {
+                alertWarning(sprintf(
                     "No RNA-seq data: {.var %s}.",
                     cancerStudy
                 ))
@@ -115,15 +115,15 @@ rnaSeqData <- function(
             prof <- geneticProfiles(cancerStudy = cancerStudy)
             keep <- grepl(
                 pattern = zscorePattern,
-                x = prof[["geneticProfileID"]]
+                x = prof[["geneticProfileId"]]
             )
             if (!any(keep)) {
-                cli_alert_warning(sprintf(
+                alertWarning(sprintf(
                     "Missing zscore: {.var %s} ({.var %s}).",
                     cancerStudy, zscorePattern
                 ))
             }
-            prof <- prof[keep, ]
+            prof <- prof[keep, , drop = FALSE]
             assert(
                 nrow(prof) == 1L,
                 identical(
@@ -135,25 +135,25 @@ rnaSeqData <- function(
                     y = "true"
                 )
             )
-            geneticProfileID <- prof[["geneticProfileID"]]
-            cli_alert(sprintf(
+            geneticProfileId <- prof[["geneticProfileId"]]
+            alert(sprintf(
                 "Importing RNA-seq data: {.var %s}.",
-                geneticProfileID
+                geneticProfileId
             ))
             df <- getProfileData(
                 x = cgds,
                 genes = geneNames,
-                caseList = caseListID,
-                geneticProfiles = geneticProfileID
+                caseList = caseListId,
+                geneticProfiles = geneticProfileId
             )
             assert(is.data.frame(df))
-            df <- rownames_to_column(df, "sampleID")
+            df <- rownames_to_column(df, "sampleId")
             df[["cancerStudy"]] <- cancerStudy
             df
         }
     )
     df <- do.call(what = bind_rows, args = unname(list))
-    df <- select(df, !!!syms(c("cancerStudy", "sampleID")), everything())
+    df <- select(df, !!!syms(c("cancerStudy", "sampleId")), everything())
     df <- arrange_all(df)
     df <- as(df, "DataFrame")
     df
