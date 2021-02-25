@@ -12,8 +12,16 @@
 #' print(x)
 cancerStudies <- function() {
     x <- getCancerStudies(x = .cgds())
-    assert(is.data.frame(x))
+    assert(
+        is.data.frame(x),
+        hasRows(x),
+        hasColnames(x)
+    )
     colnames(x) <- camelCase(colnames(x), strict = TRUE)
+    assert(identical(
+        x = colnames(x),
+        y = c("cancerStudyId", "name", "description")
+    ))
     x <- as(x, "DataFrame")
     x
 }
