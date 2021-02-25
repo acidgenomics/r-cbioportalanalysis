@@ -31,7 +31,7 @@ each gene tumors that are diploid for this gene.
 }}
 }
 \value{
-\code{DataFrame}.
+\code{matrix}.
 }
 \description{
 Get normalized RNA-seq expression data
@@ -83,6 +83,6 @@ Z-Score-normalization-script.md
 \examples{
 cancerStudies <- c("acc_tcga_pan_can_atlas_2018", "ccle_broad_2019")
 geneNames <- c("MYC", "TP53")
-df <- rnaSeqData(cancerStudies = cancerStudies, geneNames = geneNames)
-print(df)
+x <- rnaSeqData(cancerStudies = cancerStudies, geneNames = geneNames)
+head(x)
 }

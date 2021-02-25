@@ -58,20 +58,17 @@
 #'     mRNA z-Scores (RNA Seq RPKM) compared to the expression distribution of
 #'     each gene tumors that are diploid for this gene.
 #'
-#' @return `DataFrame`.
+#' @return `matrix`.
 #'
 #' @examples
 #' cancerStudies <- c("acc_tcga_pan_can_atlas_2018", "ccle_broad_2019")
 #' geneNames <- c("MYC", "TP53")
-#' df <- rnaSeqData(cancerStudies = cancerStudies, geneNames = geneNames)
-#' print(df)
+#' x <- rnaSeqData(cancerStudies = cancerStudies, geneNames = geneNames)
+#' head(x)
 rnaSeqData <- function(
     cancerStudies,
     geneNames,
-    zscore = c(
-        "all samples",
-        "diploid samples"
-    )
+    zscore = c("all samples", "diploid samples")
 ) {
     assert(
         isCharacter(cancerStudies),
@@ -146,15 +143,15 @@ rnaSeqData <- function(
                 caseList = caseListId,
                 geneticProfiles = geneticProfileId
             )
-            assert(is.data.frame(df))
-            df <- rownames_to_column(df, "sampleId")
-            df[["cancerStudy"]] <- cancerStudy
+            assert(
+                is.data.frame(df),
+                identical(colnames(df), geneNames),
+                hasRownames(df)
+            )
             df
         }
     )
-    df <- do.call(what = bind_rows, args = unname(list))
-    df <- select(df, !!!syms(c("cancerStudy", "sampleId")), everything())
-    df <- arrange_all(df)
-    df <- as(df, "DataFrame")
-    df
+    x <- do.call(what = rbind, args = unname(list))
+    x <- as.matrix(x)
+    x
 }

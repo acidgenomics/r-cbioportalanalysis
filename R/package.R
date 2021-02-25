@@ -8,11 +8,11 @@
 #'
 #' @importMethodsFrom basejump coerce
 #'
-#' @importFrom basejump alert alertWarning camelCase
+#' @importFrom basejump alert alertWarning camelCase do.call lapply rbind
 #' @importFrom cgdsr CGDS getCancerStudies getCaseLists getGeneticProfiles
 #'   getProfileData
 #' @importFrom dplyr arrange_all bind_rows everything select
-#' @importFrom goalie assert isCharacter isString
+#' @importFrom goalie assert hasRownames isCharacter isString
 #' @importFrom methods as is
 #' @importFrom rlang !!! !! sym syms
 #' @importFrom tibble rownames_to_column
