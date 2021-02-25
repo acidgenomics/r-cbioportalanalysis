@@ -2,12 +2,11 @@
 #'
 #' Toolkit for performing queries on cBioPortal.
 #'
-#' @importMethodsFrom S4Vectors coerce
+#' @importMethodsFrom basejump coerce
 #'
-#' @importFrom basejump camelCase
+#' @importFrom basejump alert alertWarning camelCase
 #' @importFrom cgdsr CGDS getCancerStudies getCaseLists getGeneticProfiles
 #'   getProfileData
-#' @importFrom cli cli_alert cli_alert_warning
 #' @importFrom dplyr arrange_all bind_rows everything select
 #' @importFrom goalie assert isCharacter isString
 #' @importFrom methods as is

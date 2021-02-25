@@ -26,7 +26,6 @@ Depends:
     R (>= 4.0),
     basejump (>= 0.14.4)
 Imports:
-    S4Vectors,
     cgdsr,
     cli (>= 2.0),
     dplyr (>= 1.0),
