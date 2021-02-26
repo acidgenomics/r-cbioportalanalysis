@@ -1,7 +1,7 @@
 #' Get normalized RNA-seq expression data
 #'
 #' @export
-#' @note Updated 2021-02-25.
+#' @note Updated 2021-02-26.
 #'
 #' @details
 #' Examples of cancer studies with different mRNA data types:
@@ -166,14 +166,13 @@ rnaSeqData <- function(
         isSubset(rownames(colData), colnames(counts))
     )
     colData <- colData[colnames(counts), , drop = FALSE]
-    ## FIXME DONT BLACKLIST ANY COLUMNS??? NAME IS DEFINED HERE FOR CCLE...
-    ## FIXME THIS IS HARD CODED INTO FUNCTION...NEED TO BE ABLE TO OVERRIDE...
     makeSummarizedExperiment(
         assays = list("counts" = counts),
         colData = colData,
         metadata = list(
             "caseLists" = caseLists,
             "geneticProfiles" = geneticProfiles
-        )
+        ),
+        denylist = FALSE
     )
 }
