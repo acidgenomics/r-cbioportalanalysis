@@ -7,8 +7,8 @@
 #' @importFrom basejump CharacterList alert alertWarning camelCase do.call
 #'   lapply makeDimnames makeNames makeSummarizedExperiment rbind sanitizeNA
 #'   sort unique
-#' @importFrom cgdsr CGDS getCancerStudies getCaseLists getGeneticProfiles
-#'   getProfileData
+#' @importFrom cgdsr CGDS getCancerStudies getCaseLists getClinicalData
+#'   getGeneticProfiles getProfileData
 #' @importFrom goalie assert hasColnames hasNoDuplicates hasRownames hasRows
 #'   isCharacter isInt isString isSubset
 #' @importFrom methods as is
