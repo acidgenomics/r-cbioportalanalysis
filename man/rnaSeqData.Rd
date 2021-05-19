@@ -74,7 +74,10 @@ where \code{r} is the raw expression value, and \code{mu} and \code{sigma} are t
 standard deviation of the base population, respectively.
 
 See also:
-https://github.com/cBioPortal/cbioportal/blob/master/docs/Z-Score-normalization-script.md
+\itemize{
+\item https://github.com/cBioPortal/cbioportal/blob/master/docs/
+Z-Score-normalization-script.md
+}
 }
 
 \examples{

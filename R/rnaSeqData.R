@@ -40,7 +40,8 @@
 #' standard deviation of the base population, respectively.
 #'
 #' See also:
-#' https://github.com/cBioPortal/cbioportal/blob/master/docs/Z-Score-normalization-script.md
+#' - https://github.com/cBioPortal/cbioportal/blob/master/docs/
+#'     Z-Score-normalization-script.md
 #'
 #' @param cancerStudies `character`.
 #'   Cancer study IDs.
