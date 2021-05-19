@@ -1,7 +1,7 @@
 #' Get normalized RNA-seq expression data
 #'
 #' @export
-#' @note Updated 2020-10-09.
+#' @note Updated 2021-02-26.
 #'
 #' @details
 #' Examples of cancer studies with different mRNA data types:
@@ -41,10 +41,10 @@
 #'
 #' See also:
 #' - https://github.com/cBioPortal/cbioportal/blob/master/docs/
-#'     Z-Score-normalization-script.md
+#'       Z-Score-normalization-script.md
 #'
-#' @param cancerStudies `character`.
-#'   Cancer study IDs.
+#' @param cancerStudy `character(1)`.
+#'   Cancer study identifier (e.g. ""acc_tcga_pan_can_atlas_2018").
 #'   See [cancerStudies()] for details.
 #' @param geneNames `character`.
 #'   HUGO gene symbols (e.g. "TP53").
@@ -58,103 +58,121 @@
 #'     mRNA z-Scores (RNA Seq RPKM) compared to the expression distribution of
 #'     each gene tumors that are diploid for this gene.
 #'
-#' @return `DataFrame`.
+#' @return `SummarizedExperiment`.
+#'   Samples (e.g. patient tumors) in the columns and genes in the rows.
 #'
 #' @examples
-#' cancerStudies <- c("acc_tcga_pan_can_atlas_2018", "ccle_broad_2019")
 #' geneNames <- c("MYC", "TP53")
-#' df <- rnaSeqData(cancerStudies = cancerStudies, geneNames = geneNames)
-#' print(df)
+#'
+#' ## ACC TCGA 2018 ====
+#' cancerStudy <- "acc_tcga_pan_can_atlas_2018"
+#' x <- rnaSeqData(cancerStudy = cancerStudy, geneNames = geneNames)
+#' print(x)
+#'
+#' ## CCLE Broad 2019 ====
+#' cancerStudy <- "ccle_broad_2019"
+#' x <- rnaSeqData(cancerStudy = cancerStudy, geneNames = geneNames)
+#' print(x)
 rnaSeqData <- function(
-    cancerStudies,
+    cancerStudy,
     geneNames,
-    zscore = c(
-        "all samples",
-        "diploid samples"
-    )
+    zscore = c("all samples", "diploid samples")
 ) {
     assert(
-        isCharacter(cancerStudies),
-        isCharacter(geneNames)
+        isString(cancerStudy),
+        isCharacter(geneNames),
+        hasNoDuplicates(geneNames)
     )
-    zscore <- match.arg(zscore)
     ## RNA-seq:
     ## [1] "_rna_seq_v2_mrna_median_Zscores"
     ## [2] "_rna_seq_v2_mrna_median_all_sample_Zscores"
     ## Microarray:
     ## [1] "_mrna_median_all_sample_Zscores"
+    zscore <- match.arg(zscore)
     zscorePattern <- switch(
         EXPR = zscore,
         "all samples" = "_rna_seq(_v2)?_mrna_median_all_sample_Zscores$",
         "diploid samples" = "_rna_seq(_v2)?_mrna_median_Zscores$"
     )
-    list <- lapply(
-        X = cancerStudies,
-        zscorePattern = zscorePattern,
-        geneNames = geneNames,
-        FUN = function(
-            cancerStudy,
-            zscorePattern,
-            geneNames,
-            cgds = .cgds()
-        ) {
-            caseList <- caseLists(cancerStudy = cancerStudy)
-            caseListID <- grep(
-                pattern = "_rna_seq(_v2)?_mrna$",
-                x = caseList[["caseListID"]],
-                value = TRUE
-            )
-            if (!isString(caseListID)) {
-                cli_alert_warning(sprintf(
-                    "No RNA-seq data: {.var %s}.",
-                    cancerStudy
-                ))
-                return(NULL)
-            }
-            ## Get mRNA expression.
-            prof <- geneticProfiles(cancerStudy = cancerStudy)
-            keep <- grepl(
-                pattern = zscorePattern,
-                x = prof[["geneticProfileID"]]
-            )
-            if (!any(keep)) {
-                cli_alert_warning(sprintf(
-                    "Missing zscore: {.var %s} ({.var %s}).",
-                    cancerStudy, zscorePattern
-                ))
-            }
-            prof <- prof[keep, ]
-            assert(
-                nrow(prof) == 1L,
-                identical(
-                    x = prof[["geneticAlterationType"]],
-                    y = "MRNA_EXPRESSION"
-                ),
-                identical(
-                    x = prof[["showProfileInAnalysisTab"]],
-                    y = "true"
-                )
-            )
-            geneticProfileID <- prof[["geneticProfileID"]]
-            cli_alert(sprintf(
-                "Importing RNA-seq data: {.var %s}.",
-                geneticProfileID
-            ))
-            df <- getProfileData(
-                x = cgds,
-                genes = geneNames,
-                caseList = caseListID,
-                geneticProfiles = geneticProfileID
-            )
-            assert(is.data.frame(df))
-            df <- rownames_to_column(df, "sampleID")
-            df[["cancerStudy"]] <- cancerStudy
-            df
-        }
+    cgds <- .cgds()
+    ## Get the case list identifier.
+    df <- caseLists(cancerStudy = cancerStudy)
+    ## e.g. "acc_tcga_pan_can_atlas_2018_rna_seq_v2_mrna".
+    caseList <- grep(
+        pattern = "_rna_seq(_v2)?_mrna$",
+        x = df[["caseListId"]],
+        value = TRUE
     )
-    df <- do.call(what = bind_rows, args = unname(list))
-    df <- select(df, !!!syms(c("cancerStudy", "sampleID")), everything())
-    df <- arrange_all(df)
-    df <- as(df, "DataFrame")
-    df
+    ## Fall back for CCLE (e.g. "ccle_broad_2019_sequenced").
+    if (!isString(caseList)) {
+        caseList <- grep(
+            pattern = "_sequenced$",
+            x = df[["caseListId"]],
+            value = TRUE
+        )
+    }
+    if (!isString(caseList)) {
+        stop(sprintf(
+            "No RNA-seq data: {.var %s}.",
+            cancerStudy
+        ))
+    }
+    ## Get mRNA expression.
+    df <- geneticProfiles(cancerStudy = cancerStudy)
+    keep <- grepl(
+        pattern = zscorePattern,
+        x = df[["geneticProfileId"]]
+    )
+    if (!any(keep)) {
+        stop(sprintf(
+            "Missing zscore: {.var %s} ({.var %s}).",
+            cancerStudy, zscorePattern
+        ))
+    }
+    df <- df[keep, , drop = FALSE]
+    assert(
+        nrow(df) == 1L,
+        identical(
+            x = df[["geneticAlterationType"]],
+            y = "MRNA_EXPRESSION"
+        ),
+        identical(
+            x = df[["showProfileInAnalysisTab"]],
+            y = "true"
+        )
+    )
+    geneticProfile <- df[["geneticProfileId"]]
+    alert(sprintf(
+        "Importing RNA-seq data: {.var %s}.",
+        geneticProfile
+    ))
+    df <- getProfileData(
+        x = cgds,
+        genes = geneNames,
+        caseList = caseList,
+        geneticProfiles = geneticProfile
+    )
+    assert(
+        is.data.frame(df),
+        identical(colnames(df), geneNames),
+        hasRownames(df)
+    )
+    counts <- makeDimnames(t(as.matrix(df)))
+    ## Get the clinical metadata corresponding to the column values
+    ## (e.g. patient and/or cell line info).
+    colData <- clinicalData(caseList = caseList)
+    assert(
+        is(colData, "DataFrame"),
+        isSubset(rownames(colData), colnames(counts))
+    )
+    colData <- colData[colnames(counts), , drop = FALSE]
+    makeSummarizedExperiment(
+        assays = list("counts" = counts),
+        colData = colData,
+        metadata = list(
+            "caseLists" = caseLists,
+            "geneticProfiles" = geneticProfiles
+        ),
+        denylist = FALSE
+    )
 }

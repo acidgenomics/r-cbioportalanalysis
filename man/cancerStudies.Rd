@@ -13,10 +13,9 @@ cancerStudies()
 Queries for datasets available on Cancer Genomics Data Server (CDGS).
 }
 \note{
-Updated 2020-10-09.
+Updated 2021-02-25.
 }
 \examples{
 x <- cancerStudies()
-colnames(x)
-head(x[["cancerStudyID"]])
+print(x)
 }
