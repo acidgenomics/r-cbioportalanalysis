@@ -1,8 +1,8 @@
 Package: cBioPortalAnalysis
 Title: cBioPortal Analysis Utilities
 Description: Toolkit for performing queries on cBioPortal.
-Version: 0.0.2
-Date: 2021-02-26
+Version: 0.0.2.9000
+Date: 2021-09-03
 Authors@R: c(
     person(
         given = "Michael",
@@ -24,13 +24,13 @@ Encoding: UTF-8
 LazyData: false
 Depends:
     R (>= 4.0),
-    basejump (>= 0.14.15)
+    basejump (>= 0.14.21.9000)
 Imports:
-    cgdsr (>= 1.3),
-    goalie (>= 0.5.0),
+    cgdsr (>= 1.3.0),
+    goalie (>= 0.5.4),
     methods
 Suggests:
-    cBioPortalData (>= 2.2),
+    cBioPortalData (>= 2.4.8),
     testthat
 biocViews:
     DataRepresentation,
