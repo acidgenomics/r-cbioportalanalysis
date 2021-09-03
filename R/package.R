@@ -4,7 +4,7 @@
 #'
 #' @importMethodsFrom basejump coerce
 #'
-#' @importFrom basejump CharacterList alert alertWarning camelCase do.call
+#' @importFrom basejump CharacterList abort alert alertWarning camelCase do.call
 #'   lapply makeDimnames makeNames makeSummarizedExperiment rbind sanitizeNA
 #'   sort unique
 #' @importFrom cgdsr CGDS getCancerStudies getCaseLists getClinicalData

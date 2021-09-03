@@ -6,8 +6,8 @@
 #' @inheritParams params
 #'
 #' @seealso
-#' - [caseLists()].
-#' - [cancerStudies()].
+#' - `caseLists()`.
+#' - `cancerStudies()`.
 #'
 #' @return `DataFrame`.
 #'
@@ -27,11 +27,16 @@ clinicalData <- function(caseList) {
         },
         error = function(e) {
             ## This currently happens for "ccle_broad_2019_all", for example.
-            stop(sprintf("cgdsr query failure for '%s'.", caseList))
+            abort(sprintf(
+                "{.pkg %s} query failure for {.var %s}.",
+                "cgdsr", caseList
+            ))
         }
     )
-    assert(is.data.frame(x))
-    assert(hasNoDuplicates(rownames(x)))
+    assert(
+        is.data.frame(x),
+        hasNoDuplicates(rownames(x))
+    )
     rownames(x) <- makeNames(rownames(x))
     colnames(x) <- camelCase(colnames(x), strict = TRUE)
     x <- sanitizeNA(x)

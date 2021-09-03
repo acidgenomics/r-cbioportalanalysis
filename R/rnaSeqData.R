@@ -1,7 +1,7 @@
 #' Get normalized RNA-seq expression data
 #'
 #' @export
-#' @note Updated 2021-02-26.
+#' @note Updated 2021-09-03.
 #'
 #' @details
 #' Examples of cancer studies with different mRNA data types:
@@ -45,7 +45,7 @@
 #'
 #' @param cancerStudy `character(1)`.
 #'   Cancer study identifier (e.g. ""acc_tcga_pan_can_atlas_2018").
-#'   See [cancerStudies()] for details.
+#'   See `cancerStudies()` for details.
 #' @param geneNames `character`.
 #'   HUGO gene symbols (e.g. "TP53").
 #' @param zscore `character`.
@@ -111,24 +111,23 @@ rnaSeqData <- function(
             value = TRUE
         )
     }
-    if (!isString(caseList)) {
-        stop(sprintf(
-            "No RNA-seq data: {.var %s}.",
-            cancerStudy
-        ))
-    }
+    assert(
+        isString(caseList),
+        msg = sprintf("No RNA-seq data: {.var %s}.", cancerStudy)
+    )
     ## Get mRNA expression.
     df <- geneticProfiles(cancerStudy = cancerStudy)
     keep <- grepl(
         pattern = zscorePattern,
         x = df[["geneticProfileId"]]
     )
-    if (!any(keep)) {
-        stop(sprintf(
+    assert(
+        any(keep),
+        msg = sprintf(
             "Missing zscore: {.var %s} ({.var %s}).",
             cancerStudy, zscorePattern
-        ))
-    }
+        )
+    )
     df <- df[keep, , drop = FALSE]
     assert(
         nrow(df) == 1L,
