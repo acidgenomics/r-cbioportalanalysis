@@ -21,7 +21,6 @@ URL:
 BugReports: https://github.com/acidgenomics/r-cbioportalanalysis/issues/
 License: AGPL-3
 Encoding: UTF-8
-LazyData: false
 Depends:
     R (>= 4.0),
     basejump (>= 0.14.21.9000)
