@@ -24,5 +24,6 @@ cancerStudies <- function() {
     ))
     x <- as(x, "DataFrame")
     rownames(x) <- x[["cancerStudyId"]]
+    x <- x[sort(rownames(x)), ]
     x
 }
