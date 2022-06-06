@@ -41,5 +41,6 @@ clinicalData <- function(caseList) {
     colnames(x) <- camelCase(colnames(x), strict = TRUE)
     x <- sanitizeNA(x)
     x <- as(x, "DataFrame")
+    x <- x[sort(rownames(x)), sort(colnames(x))]
     x
 }
