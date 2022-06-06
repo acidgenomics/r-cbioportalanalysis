@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' cancerStudy <- "ccle_broad_2019"
-#' x <- geneticProfiles(cancerStudy = cancerStudy)
+#' x <- geneticProfiles(cancerStudy)
 #' print(x)
 geneticProfiles <- function(cancerStudy) {
     assert(isString(cancerStudy))

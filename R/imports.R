@@ -1,3 +1,10 @@
+## S4 classes ==================================================================
+
+#' @importClassesFrom S4Vectors DataFrame
+NULL
+
+
+
 ## S4 generics and methods =====================================================
 
 #' @importFrom AcidGenerics camelCase makeDimnames makeNames sanitizeNA
@@ -15,8 +22,8 @@ NULL
 #' @importFrom AcidExperiment makeSummarizedExperiment
 #' @importFrom IRanges CharacterList
 #' @importFrom cgdsr CGDS getCancerStudies getCaseLists getClinicalData
-#'   getGeneticProfiles getProfileData
+#' getGeneticProfiles getProfileData
 #' @importFrom goalie assert hasColnames hasNoDuplicates hasRownames hasRows
-#'   isCharacter isInt isString isSubset
+#' isCharacter isInt isString isSubset
 #' @importFrom methods as is
 NULL

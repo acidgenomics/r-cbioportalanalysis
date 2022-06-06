@@ -2,8 +2,8 @@
 #'
 #' Queries for datasets available on Cancer Genomics Data Server (CDGS).
 #'
-#' @note Updated 2021-02-25.
 #' @export
+#' @note Updated 2021-02-25.
 #'
 #' @return `DataFrame`.
 #'

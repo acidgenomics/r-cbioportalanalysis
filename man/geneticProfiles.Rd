@@ -22,6 +22,6 @@ Updated 2021-02-25.
 }
 \examples{
 cancerStudy <- "ccle_broad_2019"
-x <- geneticProfiles(cancerStudy = cancerStudy)
+x <- geneticProfiles(cancerStudy)
 print(x)
 }
