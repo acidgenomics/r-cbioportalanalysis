@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' cancerStudy <- "ccle_broad_2019"
-#' x <- caseLists(cancerStudy = cancerStudy)
+#' x <- caseLists(cancerStudy)
 #' print(x)
 caseLists <- function(cancerStudy) {
     assert(isString(cancerStudy))
