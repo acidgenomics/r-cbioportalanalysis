@@ -1,3 +1,14 @@
+# cBioPortalAnalysis 0.1.0 (2022-06-06)
+
+### Major changes
+
+- Now requiring R 4.2 / Bioconductor 3.15.
+- Added code coverage using testthat, and updated lintr checks.
+
+### Minor changes
+
+- Updated NAMESPACE, splitting out basejump imports into original packages.
+
 ## cBioPortalAnalysis 0.0.2 (2021-02-26)
 
 ### Major changes
