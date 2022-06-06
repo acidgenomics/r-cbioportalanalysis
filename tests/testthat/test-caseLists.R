@@ -3,5 +3,3 @@ test_that("caseLists", {
     expect_s4_class(x, "DFrame")
     expect_identical(rownames(x)[[1L]], "ccle_broad_2019_all")
 })
-
-

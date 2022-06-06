@@ -9,4 +9,3 @@ test_that("rnaSeqData", {
     expect_identical(rownames(x), geneNames)
     expect_identical(colnames(x)[[1L]], "A101D_SKIN")
 })
-
