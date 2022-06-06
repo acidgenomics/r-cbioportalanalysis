@@ -1,7 +1,7 @@
 #' Get available case lists for a specific cancer study
 #'
 #' @export
-#' @note Updated 2021-02-25.
+#' @note Updated 2022-06-06.
 #'
 #' @inheritParams params
 #'
@@ -11,8 +11,7 @@
 #' - [cancerStudies()].
 #'
 #' @examples
-#' cancerStudy <- "ccle_broad_2019"
-#' x <- caseLists(cancerStudy)
+#' x <- caseLists(cancerStudy = "ccle_broad_2019")
 #' print(x)
 caseLists <- function(cancerStudy) {
     assert(isString(cancerStudy))
@@ -45,5 +44,6 @@ caseLists <- function(cancerStudy) {
     cases <- sort(unique(cases))
     x[["caseIds"]] <- cases
     rownames(x) <- x[["caseListId"]]
+    x <- x[sort(rownames(x)), ]
     x
 }

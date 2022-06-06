@@ -13,7 +13,7 @@ cancerStudies()
 Queries for datasets available on Cancer Genomics Data Server (CDGS).
 }
 \note{
-Updated 2021-02-25.
+Updated 2022-06-06.
 }
 \examples{
 x <- cancerStudies()

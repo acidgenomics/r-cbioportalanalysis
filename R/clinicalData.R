@@ -1,7 +1,7 @@
 #' Get available clinical data for samples in a case list
 #'
 #' @export
-#' @note Updated 2021-02-25.
+#' @note Updated 2022-06-06.
 #'
 #' @inheritParams params
 #'

@@ -18,11 +18,10 @@ Refer to \code{\link[=cancerStudies]{cancerStudies()}} for details.}
 Get available case lists for a specific cancer study
 }
 \note{
-Updated 2021-02-25.
+Updated 2022-06-06.
 }
 \examples{
-cancerStudy <- "ccle_broad_2019"
-x <- caseLists(cancerStudy = cancerStudy)
+x <- caseLists(cancerStudy = "ccle_broad_2019")
 print(x)
 }
 \seealso{

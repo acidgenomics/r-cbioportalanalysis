@@ -18,7 +18,7 @@ Refer to \code{\link[=caseLists]{caseLists()}} for details.}
 Get available clinical data for samples in a case list
 }
 \note{
-Updated 2021-02-25.
+Updated 2022-06-06.
 }
 \examples{
 ## DLBCL TCGA ====

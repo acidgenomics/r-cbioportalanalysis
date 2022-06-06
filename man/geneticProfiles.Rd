@@ -18,10 +18,9 @@ Refer to \code{\link[=cancerStudies]{cancerStudies()}} for details.}
 Get available genetic data profiles for a specific cancer study
 }
 \note{
-Updated 2021-02-25.
+Updated 2022-06-06.
 }
 \examples{
-cancerStudy <- "ccle_broad_2019"
-x <- geneticProfiles(cancerStudy)
+x <- geneticProfiles(cancerStudy = "ccle_broad_2019")
 print(x)
 }
