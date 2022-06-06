@@ -31,7 +31,7 @@ print(x)
 }
 \seealso{
 \itemize{
-\item \code{\link[=caseLists]{caseLists()}}.
-\item \code{\link[=cancerStudies]{cancerStudies()}}.
+\item \code{caseLists()}.
+\item \code{cancerStudies()}.
 }
 }

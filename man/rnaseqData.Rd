@@ -13,7 +13,7 @@ rnaSeqData(
 \arguments{
 \item{cancerStudy}{\code{character(1)}.
 Cancer study identifier (e.g. ""acc_tcga_pan_can_atlas_2018").
-See \code{\link[=cancerStudies]{cancerStudies()}} for details.}
+See \code{cancerStudies()} for details.}
 
 \item{geneNames}{\code{character}.
 HUGO gene symbols (e.g. "TP53").}
@@ -46,7 +46,7 @@ Examples of cancer studies with different mRNA data types:
 }
 }
 \note{
-Updated 2021-02-26.
+Updated 2021-09-03.
 }
 \section{The cBioPortal Z-Score calculation method}{
 
@@ -68,8 +68,10 @@ or \code{NaN}). If the gene has samples whose expression values are all zeros or
 non-numeric, then its normalized expression is reported as \code{NA}.
 
 Otherwise for every sample, the gene's normalized expression for both the
-profiles is reported as:\preformatted{(r - mu)/sigma
-}
+profiles is reported as:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{(r - mu)/sigma
+}\if{html}{\out{</div>}}
 
 where \code{r} is the raw expression value, and \code{mu} and \code{sigma} are the mean and
 standard deviation of the base population, respectively.
