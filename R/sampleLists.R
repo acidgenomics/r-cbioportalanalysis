@@ -3,6 +3,10 @@
 #' @export
 #' @note Updated 2022-09-15.
 #'
+#' @details
+#' This doesn't currently return samples with specific RNA-seq information
+#' for `pancan_pcawg_2020`. Use `molecularProfiles` for that instead.
+#'
 #' @inheritParams params
 #'
 #' @return `DataFrame`.

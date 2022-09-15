@@ -5,10 +5,14 @@
 #'
 #' @return `cBioPortal`
 .api <- function() {
-    cBioPortal(
-        hostname = "www.cbioportal.org",
-        protocol = "https",
-        api. = "/api/api-docs",
-        token = character()
-    )
+    suppressWarnings({
+        api <- cBioPortal(
+            hostname = "www.cbioportal.org",
+            protocol = "https",
+            api. = "/api/api-docs",
+            token = character()
+        )
+    })
+    assert(is(api, "cBioPortal"))
+    api
 }

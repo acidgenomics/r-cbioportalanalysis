@@ -21,6 +21,10 @@ Can be left \code{NULL} by default.}
 \description{
 Get available case lists for a specific cancer study
 }
+\details{
+This doesn't currently return samples with specific RNA-seq information
+for \code{pancan_pcawg_2020}. Use \code{molecularProfiles} for that instead.
+}
 \note{
 Updated 2022-09-15.
 }
