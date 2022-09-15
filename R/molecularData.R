@@ -127,18 +127,13 @@ molecularData <-
         x <- x[[1L]]
         assert(
             is.data.frame(x),
-            areSetEqual(
-                x = colnames(x),
-                y = c(
-                    "uniqueSampleKey",
-                    "uniquePatientKey",
+            isSubset(
+                x = c(
                     "entrezGeneId",
-                    "molecularProfileId",
                     "sampleId",
-                    "patientId",
-                    "studyId",
                     "value"
-                )
+                ),
+                y = colnames(x)
             )
         )
         x <- x[
@@ -149,11 +144,26 @@ molecularData <-
                 "value"
             )
         ]
-        x <- as(x, "DataFrame")
-        x <- x[do.call(what = order, args = x), , drop = FALSE]
+        ## FIXME We need to write a base R version for AcidPlyr that works on
+        ## S4 DataFrame class...the opposite of our `melt` function.
+        ## This is called "cast" in the reshape2 package.
+        ## https://stackoverflow.com/questions/7827815/
+        x <- tidyr::pivot_wider(
+            data = x,
+            names_from = entrezGeneId,
+            values_from = value,
+            values_fill = NULL
+        )
+        x <- as.data.frame(x)
+        assert(hasNoDuplicates(x[["sampleId"]]))
+        rownames(x) <- x[["sampleId"]]
+        x[["sampleId"]] <- NULL
+        x <- as.matrix(x)
+        ## Put the samples in columns, features in rows.
+        x <- t(x)
 
-        ## FIXME What if we converted to a
 
+        ## FIXME Draft update, come back to this...
 
 
         ## FIXME Need to get clinicalInfo that we can use as column data.
