@@ -4,12 +4,16 @@
 \alias{clinicalData}
 \title{Get available clinical data for samples in a case list}
 \usage{
-clinicalData(caseList)
+clinicalData(studyId, .api = NULL)
 }
 \arguments{
-\item{caseList}{\code{character(1)}.
-Case list identifier (e.g. "ccle_broad_2019_sequenced").
-Refer to \code{\link[=caseLists]{caseLists()}} for details.}
+\item{studyId}{\code{character(1)}.
+Cancer study identifier (e.g. \code{"ccle_broad_2019"}).
+Refer to \code{\link[=cancerStudies]{cancerStudies()}} for details.}
+
+\item{.api}{\code{cBioPortal} or \code{NULL}.
+\code{cBioPortal} API connection.
+Can be left \code{NULL} by default.}
 }
 \value{
 \code{DataFrame}.
@@ -18,15 +22,10 @@ Refer to \code{\link[=caseLists]{caseLists()}} for details.}
 Get available clinical data for samples in a case list
 }
 \note{
-Updated 2022-06-06.
+Updated 2022-09-15.
 }
 \examples{
-## DLBCL TCGA ====
-x <- clinicalData(caseList = "dlbc_tcga_pan_can_atlas_2018_rna_seq_v2_mrna")
-print(x)
-
-## CCLE Broad 2019 ====
-x <- clinicalData(caseList = "ccle_broad_2019_sequenced")
+x <- clinicalData(studyId = "pancan_pcawg_2020")
 print(x)
 }
 \seealso{

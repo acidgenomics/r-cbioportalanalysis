@@ -1,7 +1,11 @@
-#' Get normalized RNA-seq expression data
+## FIXME What if we want to pull all TCGA 2018 PanCancer studies here?
+
+
+
+#' Get molecular (i.e. expression) data
 #'
 #' @export
-#' @note Updated 2021-09-03.
+#' @note Updated 2022-09-15.
 #'
 #' @details
 #' Examples of cancer studies with different mRNA data types:
@@ -9,7 +13,6 @@
 #' - RNA-seq v2: `gbm_tcga_pub2013_rna_seq_v2_mrna`.
 #' - RNA-seq v1: `nbl_target_2018_pub_rna_seq_mrna`.
 #' - Microarray: `gbm_tcga_pub_mrna`.
-#'
 #'
 #' @section The cBioPortal Z-Score calculation method:
 #'
@@ -66,97 +69,95 @@
 #' @examples
 #' geneNames <- c("MYC", "TP53")
 #'
-#' ## ACC TCGA 2018 ====
-#' cancerStudy <- "acc_tcga_pan_can_atlas_2018"
-#' x <- rnaSeqData(cancerStudy = cancerStudy, geneNames = geneNames)
+#' ## pancan_pcawg_2020 RNA-seq ====
+#' studyId <- "pancan_pcawg_2020"
+#' mp <- molecularProfiles(studyId = studyId)
+#' molecularProfileId <- mp[["molecularProfileId"]][[1L]]
+#' x <- molecularData(
+#'     studyId = studyId,
+#'     molecularProfileId = molecularProfileId,
+#'     geneNames = geneNames
+#' )
 #' print(x)
 #'
 #' ## CCLE Broad 2019 ====
 #' cancerStudy <- "ccle_broad_2019"
-#' x <- rnaSeqData(cancerStudy = cancerStudy, geneNames = geneNames)
+#' ## FIXME Get the molecular profile ID example here.
+#' x <- molecularData(cancerStudy = cancerStudy, geneNames = geneNames)
 #' print(x)
-rnaSeqData <-
-    function(cancerStudy,
+molecularData <-
+    function(studyId,
+             molecularProfileId,
              geneNames,
-             zscore = c("all samples", "diploid samples")) {
-        assert(
-            isString(cancerStudy),
-            isCharacter(geneNames),
-            hasNoDuplicates(geneNames)
-        )
-        ## RNA-seq:
-        ## [1] "_rna_seq_v2_mrna_median_Zscores"
-        ## [2] "_rna_seq_v2_mrna_median_all_sample_Zscores"
-        ## Microarray:
-        ## [1] "_mrna_median_all_sample_Zscores"
-        zscore <- match.arg(zscore)
-        zscorePattern <- switch(
-            EXPR = zscore,
-            "all samples" = "_rna_seq(_v2)?_mrna_median_all_sample_Zscores$",
-            "diploid samples" = "_rna_seq(_v2)?_mrna_median_Zscores$"
-        )
-        cgds <- .cgds()
-        ## Get the case list identifier.
-        df <- caseLists(cancerStudy = cancerStudy)
-        ## e.g. "acc_tcga_pan_can_atlas_2018_rna_seq_v2_mrna".
-        caseList <- grep(
-            pattern = "_rna_seq(_v2)?_mrna$",
-            x = df[["caseListId"]],
-            value = TRUE
-        )
-        ## Fall back for CCLE (e.g. "ccle_broad_2019_sequenced").
-        if (!isString(caseList)) {
-            caseList <- grep(
-                pattern = "_sequenced$",
-                x = df[["caseListId"]],
-                value = TRUE
-            )
+             .api = NULL) {
+        if (is.null(.api)) {
+            .api <- .api()
         }
         assert(
-            isString(caseList),
-            msg = sprintf("No RNA-seq data: {.var %s}.", cancerStudy)
+            isString(studyId),
+            isString(molecularProfileId),
+            isCharacter(geneNames),
+            hasNoDuplicates(geneNames),
+            is(.api, "cBioPortal")
         )
-        ## Get mRNA expression.
-        df <- geneticProfiles(cancerStudy = cancerStudy)
-        keep <- grepl(
-            pattern = zscorePattern,
-            x = df[["geneticProfileId"]]
+        map <- cBioPortalData::queryGeneTable(
+            api = .api,
+            by = "hugoGeneSymbol",
+            genes = geneNames
         )
         assert(
-            any(keep),
-            msg = sprintf(
-                "Missing zscore: {.var %s} ({.var %s}).",
-                cancerStudy, zscorePattern
-            )
-        )
-        df <- df[keep, , drop = FALSE]
-        assert(
-            nrow(df) == 1L,
-            identical(
-                x = df[["geneticAlterationType"]],
-                y = "MRNA_EXPRESSION"
+            is.data.frame(map),
+            isSubset(
+                x = c("entrezGeneId", "hugoGeneSymbol"),
+                y = colnames(map)
             ),
-            identical(
-                x = df[["showProfileInAnalysisTab"]],
-                y = "true"
+            identical(geneNames, map[["hugoGeneSymbol"]])
+        )
+        entrezGeneIds <- map[["entrezGeneId"]]
+        si <- sampleInfo(studyId = studyId, .api = .api)
+        sampleIds <- si[["sampleId"]]
+        assert(isCharacter(sampleIds))
+        x <- cBioPortalData::molecularData(
+            api = .api,
+            molecularProfileIds = molecularProfileId,
+            entrezGeneIds = entrezGeneIds,
+            sampleIds = sampleIds
+        )
+        assert(is.list(x))
+        x <- x[[1L]]
+        assert(
+            is.data.frame(x),
+            areSetEqual(
+                x = colnames(x),
+                y = c(
+                    "uniqueSampleKey",
+                    "uniquePatientKey",
+                    "entrezGeneId",
+                    "molecularProfileId",
+                    "sampleId",
+                    "patientId",
+                    "studyId",
+                    "value"
+                )
             )
         )
-        geneticProfile <- df[["geneticProfileId"]]
-        alert(sprintf(
-            "Importing RNA-seq data: {.var %s}.",
-            geneticProfile
-        ))
-        df <- getProfileData(
-            x = cgds,
-            genes = geneNames,
-            caseList = caseList,
-            geneticProfiles = geneticProfile
-        )
-        assert(
-            is.data.frame(df),
-            identical(colnames(df), geneNames),
-            hasRownames(df)
-        )
+        x <- x[
+            ,
+            c(
+                "entrezGeneId",
+                "sampleId",
+                "value"
+            )
+        ]
+        x <- as(x, "DataFrame")
+        x <- x[do.call(what = order, args = x), , drop = FALSE]
+
+        ## FIXME What if we converted to a
+
+
+
+        ## FIXME Need to get clinicalInfo that we can use as column data.
+
         counts <- makeDimnames(t(as.matrix(df)))
         ## Get the clinical metadata corresponding to the column values
         ## (e.g. patient and/or cell line info).
