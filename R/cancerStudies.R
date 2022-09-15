@@ -15,7 +15,7 @@ cancerStudies <- function(.api = NULL) {
         .api <- .api()
     }
     assert(is(.api, "cBioPortal"))
-    x <- getStudies(api = .api)
+    x <- getStudies(api = .api, buildReport = TRUE)
     assert(
         is.data.frame(x),
         hasRows(x),

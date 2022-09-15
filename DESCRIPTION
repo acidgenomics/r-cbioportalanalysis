@@ -31,7 +31,7 @@ Imports:
     BiocGenerics,
     IRanges,
     S4Vectors,
-    cBioPortalData,
+    cBioPortalData (>= 2.8.2),
     goalie,
     methods,
     pipette,
