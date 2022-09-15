@@ -9,6 +9,7 @@ NULL
 
 #' @importFrom AcidGenerics camelCase makeDimnames makeNames sanitizeNA
 #' @importFrom BiocGenerics do.call lapply rbind sort unique
+#' @importFrom IRanges gsub
 #'
 #' @importMethodsFrom pipette sanitizeNA
 #' @importMethodsFrom syntactic camelCase makeDimnames makeNames
@@ -20,9 +21,8 @@ NULL
 
 #' @importFrom AcidCLI abort alert alertWarning
 #' @importFrom AcidExperiment makeSummarizedExperiment
-#' @importFrom IRanges CharacterList
-#' @importFrom cgdsr CGDS getCancerStudies getCaseLists getClinicalData
-#' getGeneticProfiles getProfileData
+#' @importFrom IRanges CharacterList IntegerList
+#' @importFrom cBioPortalData cBioPortal getStudies
 #' @importFrom goalie assert hasColnames hasNoDuplicates hasRownames hasRows
 #' isCharacter isInt isString isSubset
 #' @importFrom methods as is

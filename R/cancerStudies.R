@@ -3,7 +3,7 @@
 #' Queries for datasets available on Cancer Genomics Data Server (CDGS).
 #'
 #' @export
-#' @note Updated 2022-06-06.
+#' @note Updated 2022-09-15.
 #'
 #' @return `DataFrame`.
 #'
@@ -11,19 +11,31 @@
 #' x <- cancerStudies()
 #' print(x)
 cancerStudies <- function() {
-    x <- getCancerStudies(x = .cgds())
+    api <- .api()
+    x <- getStudies(api = api)
     assert(
         is.data.frame(x),
         hasRows(x),
         hasColnames(x)
     )
     colnames(x) <- camelCase(colnames(x), strict = TRUE)
-    assert(identical(
-        x = colnames(x),
-        y = c("cancerStudyId", "name", "description")
+    x[["citation"]] <- NULL
+    assert(isSubset(
+        x = c("description", "groups", "name", "pmid", "studyId"),
+        y = colnames(x)
     ))
     x <- as(x, "DataFrame")
-    rownames(x) <- x[["cancerStudyId"]]
+    rownames(x) <- x[["studyId"]]
     x <- x[sort(rownames(x)), ]
+    x[["groups"]] <- CharacterList(strsplit(
+        x = x[["groups"]],
+        split = ";",
+        fixed = TRUE
+    ))
+    x[["pmid"]] <- IntegerList(strsplit(
+        x = x[["pmid"]],
+        split = ",",
+        fixed = TRUE
+    ))
     x
 }
