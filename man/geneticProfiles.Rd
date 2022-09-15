@@ -6,11 +6,6 @@
 \usage{
 geneticProfiles(cancerStudy)
 }
-\arguments{
-\item{cancerStudy}{\code{character(1)}.
-Cancer study identifier (e.g. "ccle_broad_2019").
-Refer to \code{\link[=cancerStudies]{cancerStudies()}} for details.}
-}
 \value{
 \code{DataFrame}.
 }

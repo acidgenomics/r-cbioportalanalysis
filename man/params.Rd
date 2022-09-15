@@ -4,13 +4,13 @@
 \alias{params}
 \title{Shared parameter documentation}
 \arguments{
-\item{cancerStudy}{\code{character(1)}.
-Cancer study identifier (e.g. "ccle_broad_2019").
-Refer to \code{\link[=cancerStudies]{cancerStudies()}} for details.}
-
 \item{caseList}{\code{character(1)}.
 Case list identifier (e.g. "ccle_broad_2019_sequenced").
 Refer to \code{\link[=caseLists]{caseLists()}} for details.}
+
+\item{studyId}{\code{character(1)}.
+Cancer study identifier (e.g. \code{"ccle_broad_2019"}).
+Refer to \code{\link[=cancerStudies]{cancerStudies()}} for details.}
 }
 \value{
 No value.
