@@ -10,9 +10,12 @@
 #' @examples
 #' x <- cancerStudies()
 #' print(x)
-cancerStudies <- function() {
-    api <- .api()
-    x <- getStudies(api = api)
+cancerStudies <- function(.api = NULL) {
+    if (is.null(.api)) {
+        .api <- .api()
+    }
+    assert(is(.api, "cBioPortal"))
+    x <- getStudies(api = .api)
     assert(
         is.data.frame(x),
         hasRows(x),

@@ -4,12 +4,16 @@
 \alias{sampleLists}
 \title{Get available case lists for a specific cancer study}
 \usage{
-sampleLists(studyId)
+sampleLists(studyId, .api = NULL)
 }
 \arguments{
 \item{studyId}{\code{character(1)}.
 Cancer study identifier (e.g. \code{"ccle_broad_2019"}).
 Refer to \code{\link[=cancerStudies]{cancerStudies()}} for details.}
+
+\item{.api}{\code{cBioPortal} or \code{NULL}.
+\code{cBioPortal} API connection.
+Can be left \code{NULL} by default.}
 }
 \value{
 \code{DataFrame}.
@@ -21,7 +25,7 @@ Get available case lists for a specific cancer study
 Updated 2022-09-15.
 }
 \examples{
-x <- sampleLists(studyId = "ccle_broad_2019")
+x <- sampleLists(studyId = "pancan_pcawg_2020")
 print(x)
 }
 \seealso{

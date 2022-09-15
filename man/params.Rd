@@ -11,6 +11,10 @@ Refer to \code{\link[=caseLists]{caseLists()}} for details.}
 \item{studyId}{\code{character(1)}.
 Cancer study identifier (e.g. \code{"ccle_broad_2019"}).
 Refer to \code{\link[=cancerStudies]{cancerStudies()}} for details.}
+
+\item{.api}{\code{cBioPortal} or \code{NULL}.
+\code{cBioPortal} API connection.
+Can be left \code{NULL} by default.}
 }
 \value{
 No value.

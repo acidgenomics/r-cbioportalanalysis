@@ -4,7 +4,7 @@
 \alias{cancerStudies}
 \title{Cancer studies available on cBioPortal}
 \usage{
-cancerStudies()
+cancerStudies(.api = NULL)
 }
 \value{
 \code{DataFrame}.

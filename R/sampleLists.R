@@ -1,3 +1,8 @@
+## FIXME "pancan_pcawg_2020" has sequencing data on the website but this
+## isn't returning here. Why not?
+
+
+
 #' Get available case lists for a specific cancer study
 #'
 #' @export
@@ -11,13 +16,18 @@
 #' - [cancerStudies()].
 #'
 #' @examples
-#' x <- sampleLists(studyId = "ccle_broad_2019")
+#' x <- sampleLists(studyId = "pancan_pcawg_2020")
 #' print(x)
-sampleLists <- function(studyId) {
-    assert(isString(studyId))
-    api <- .api()
+sampleLists <- function(studyId, .api = NULL) {
+    if (is.null(.api)) {
+        .api <- .api()
+    }
+    assert(
+        is(.api, "cBioPortal"),
+        isString(studyId)
+    )
     x <- cBioPortalData::sampleLists(
-        api = api,
+        api = .api,
         studyId = studyId
     )
     assert(
