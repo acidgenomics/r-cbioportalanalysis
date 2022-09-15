@@ -25,7 +25,7 @@ sampleInfo <-
             projection = "DETAILED"
         )
         x <- as(x, "DataFrame")
-        colnames(x) <- camelCase(colnames(x))
+        colnames(x) <- camelCase(colnames(x), strict = TRUE)
         assert(hasNoDuplicates(x[["sampleId"]]))
         rownames(x) <- x[["sampleId"]]
         x <- x[sort(rownames(x)), ]
