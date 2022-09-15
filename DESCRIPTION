@@ -21,7 +21,9 @@ URL:
 BugReports: https://github.com/acidgenomics/r-cbioportalanalysis/issues/
 License: AGPL-3
 Encoding: UTF-8
-Depends: R (>= 4.2)
+Depends:
+    R (>= 4.2),
+    MultiAssayExperiment
 Imports:
     AcidCLI,
     AcidExperiment,
@@ -35,6 +37,7 @@ Imports:
     pipette,
     syntactic
 Suggests:
+    curatedTCGAData,
     testthat (>= 3.0.0)
 Additional_repositories: https://r.acidgenomics.com
 Config/testthat/edition: 3
