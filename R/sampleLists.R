@@ -1,8 +1,3 @@
-## FIXME "pancan_pcawg_2020" has sequencing data on the website but this
-## isn't returning here. Why not?
-
-
-
 #' Get available case lists for a specific cancer study
 #'
 #' @export
@@ -16,7 +11,7 @@
 #' - [cancerStudies()].
 #'
 #' @examples
-#' x <- sampleLists(studyId = "pancan_pcawg_2020")
+#' x <- sampleLists(studyId = "ccle_broad_2019")
 #' print(x)
 sampleLists <- function(studyId, .api = NULL) {
     if (is.null(.api)) {

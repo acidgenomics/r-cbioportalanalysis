@@ -25,7 +25,7 @@ Get available case lists for a specific cancer study
 Updated 2022-09-15.
 }
 \examples{
-x <- sampleLists(studyId = "pancan_pcawg_2020")
+x <- sampleLists(studyId = "ccle_broad_2019")
 print(x)
 }
 \seealso{
