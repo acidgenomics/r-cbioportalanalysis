@@ -1,11 +1,7 @@
-## FIXME What if we want to pull all TCGA 2018 PanCancer studies here?
-
-
-
 #' Get molecular (i.e. expression) data
 #'
 #' @export
-#' @note Updated 2022-09-15.
+#' @note Updated 2022-09-16.
 #'
 #' @details
 #' Examples of cancer studies with different mRNA data types:
@@ -51,28 +47,19 @@
 #' See `cancerStudies()` for details.
 #'
 #' @param geneNames `character`.
-#' HUGO gene symbols (e.g. "TP53").
-#'
-#' @param zscore `character`.
-#' - `"all samples"`:
-#' mRNA expression z-Scores relative to all samples (log RNA Seq RPKM).
-#' Log-transformed mRNA z-Scores compared to the expression distribution of
-#' all samples (RNA Seq RPKM).
-#' - `"diploid samples"`:
-#' mRNA expression z-Scores relative to diploid samples (RNA Seq RPKM).
-#' mRNA z-Scores (RNA Seq RPKM) compared to the expression distribution of
-#' each gene tumors that are diploid for this gene.
+#' HUGO gene symbols (e.g. `"MYC"`, `"TP53"`).
 #'
 #' @return `SummarizedExperiment`.
 #' Samples (e.g. patient tumors) in the columns and genes in the rows.
+#' Note that rownames return as Entrez gene identifiers.
 #'
 #' @examples
 #' geneNames <- c("MYC", "TP53")
 #'
-#' ## pancan_pcawg_2020 RNA-seq ====
+#' ## Pan-cancer analysis of whole genomes ====
 #' studyId <- "pancan_pcawg_2020"
-#' mp <- molecularProfiles(studyId = studyId)
-#' molecularProfileId <- mp[["molecularProfileId"]][[1L]]
+#' mp <- molecularProfiles(studyId)
+#' molecularProfileId <- rownames(mp)[[1L]]
 #' x <- molecularData(
 #'     studyId = studyId,
 #'     molecularProfileId = molecularProfileId,
@@ -81,9 +68,14 @@
 #' print(x)
 #'
 #' ## CCLE Broad 2019 ====
-#' cancerStudy <- "ccle_broad_2019"
-#' ## FIXME Get the molecular profile ID example here.
-#' x <- molecularData(cancerStudy = cancerStudy, geneNames = geneNames)
+#' studyId <- "ccle_broad_2019"
+#' mp <- molecularProfiles(studyId)
+#' molecularProfileId <- rownames(mp)[[1L]]
+#' x <- molecularData(
+#'     studyId = studyId,
+#'     molecularProfileId = molecularProfileId,
+#'     geneNames = geneNames
+#' )
 #' print(x)
 molecularData <-
     function(studyId,
@@ -123,66 +115,44 @@ molecularData <-
             entrezGeneIds = entrezGeneIds,
             sampleIds = sampleIds
         )
-        assert(is.list(x))
-        x <- x[[1L]]
+        assert(
+            is.list(x),
+            identical(names(x), molecularProfileId)
+        )
+        x <- x[[molecularProfileId]]
         assert(
             is.data.frame(x),
             isSubset(
-                x = c(
-                    "entrezGeneId",
-                    "sampleId",
-                    "value"
-                ),
+                x = c("entrezGeneId", "sampleId", "value"),
                 y = colnames(x)
             )
         )
-        x <- x[
-            ,
-            c(
-                "entrezGeneId",
-                "sampleId",
-                "value"
-            )
-        ]
-        ## FIXME We need to write a base R version for AcidPlyr that works on
-        ## S4 DataFrame class...the opposite of our `melt` function.
-        ## This is called "cast" in the reshape2 package.
-        ## https://stackoverflow.com/questions/7827815/
-        x <- tidyr::pivot_wider(
-            data = x,
-            names_from = entrezGeneId,
-            values_from = value,
-            values_fill = NULL
-        )
-        x <- as.data.frame(x)
-        assert(hasNoDuplicates(x[["sampleId"]]))
-        rownames(x) <- x[["sampleId"]]
-        x[["sampleId"]] <- NULL
-        x <- as.matrix(x)
-        ## Put the samples in columns, features in rows.
-        x <- t(x)
-
-
-        ## FIXME Draft update, come back to this...
-
-
-        ## FIXME Need to get clinicalInfo that we can use as column data.
-
-        counts <- makeDimnames(t(as.matrix(df)))
-        ## Get the clinical metadata corresponding to the column values
-        ## (e.g. patient and/or cell line info).
-        colData <- clinicalData(caseList = caseList)
+        long <- x[, c("entrezGeneId", "sampleId", "value")]
+        long <- as(long, "DataFrame")
+        colnames(long) <- c("rowname", "colname", "value")
+        wide <- cast(object = long, colnames = "colname", values = "value")
+        assay <- as.matrix(wide)
+        rowData <- EntrezGeneInfo(organism = "Homo sapiens")
+        rowData <- as(rowData, "DataFrame")
+        colData <- clinicalData(studyId)
         assert(
-            is(colData, "DataFrame"),
-            isSubset(rownames(colData), colnames(counts))
+            isSubset(rownames(assay), rownames(rowData)),
+            isSubset(colnames(assay), rownames(colData))
         )
-        colData <- colData[colnames(counts), , drop = FALSE]
+        rowData <- rowData[rownames(assay), , drop = FALSE]
+        colData <- colData[colnames(assay), , drop = FALSE]
+        rownames(rowData) <- as.character(rowData[["geneName"]])
+        rownames(assay) <- rownames(rowData)
+        assays <- list(assay)
+        names(assays) <- molecularProfileId
         makeSummarizedExperiment(
-            assays = list("counts" = counts),
+            assays = assays,
+            rowData = rowData,
             colData = colData,
             metadata = list(
-                "caseLists" = caseLists,
-                "geneticProfiles" = geneticProfiles
+                "studyId" = studyId,
+                "molecularProfileId" = molecularProfileId,
+                "geneNames" = geneNames
             ),
             denylist = FALSE
         )

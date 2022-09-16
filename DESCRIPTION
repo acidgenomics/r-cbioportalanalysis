@@ -22,21 +22,22 @@ BugReports: https://github.com/acidgenomics/r-cbioportalanalysis/issues/
 License: AGPL-3
 Encoding: UTF-8
 Depends:
-    R (>= 4.2),
-    MultiAssayExperiment
+    R (>= 4.2)
 Imports:
-    AcidCLI,
-    AcidExperiment,
-    AcidGenerics,
-    BiocGenerics,
-    IRanges,
-    S4Vectors,
+    AcidCLI (>= 0.2.3),
+    AcidExperiment (>= 0.4.4),
+    AcidGenerics (>= 0.6.4),
+    AcidPlyr (>= 0.3.2),
+    BiocGenerics (>= 0.42.0),
+    IRanges (>= 2.30.1),
+    S4Vectors (>= 0.34.0),
     cBioPortalData (>= 2.8.2),
-    goalie,
+    goalie (>= 0.6.4),
     methods,
-    pipette,
-    syntactic
+    pipette (>= 0.10.0),
+    syntactic (>= 0.6.3)
 Suggests:
+    MultiAssayExperiment (>= 1.22.0),
     curatedTCGAData,
     testthat (>= 3.0.0)
 Additional_repositories: https://r.acidgenomics.com

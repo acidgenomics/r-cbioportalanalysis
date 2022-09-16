@@ -8,27 +8,16 @@ molecularData(studyId, molecularProfileId, geneNames, .api = NULL)
 }
 \arguments{
 \item{geneNames}{\code{character}.
-HUGO gene symbols (e.g. "TP53").}
+HUGO gene symbols (e.g. \code{"MYC"}, \code{"TP53"}).}
 
 \item{cancerStudy}{\code{character(1)}.
 Cancer study identifier (e.g. ""acc_tcga_pan_can_atlas_2018").
 See \code{cancerStudies()} for details.}
-
-\item{zscore}{\code{character}.
-\itemize{
-\item \code{"all samples"}:
-mRNA expression z-Scores relative to all samples (log RNA Seq RPKM).
-Log-transformed mRNA z-Scores compared to the expression distribution of
-all samples (RNA Seq RPKM).
-\item \code{"diploid samples"}:
-mRNA expression z-Scores relative to diploid samples (RNA Seq RPKM).
-mRNA z-Scores (RNA Seq RPKM) compared to the expression distribution of
-each gene tumors that are diploid for this gene.
-}}
 }
 \value{
 \code{SummarizedExperiment}.
 Samples (e.g. patient tumors) in the columns and genes in the rows.
+Note that rownames return as Entrez gene identifiers.
 }
 \description{
 Get molecular (i.e. expression) data
@@ -42,7 +31,7 @@ Examples of cancer studies with different mRNA data types:
 }
 }
 \note{
-Updated 2022-09-15.
+Updated 2022-09-16.
 }
 \section{The cBioPortal Z-Score calculation method}{
 
@@ -82,10 +71,10 @@ Z-Score-normalization-script.md
 \examples{
 geneNames <- c("MYC", "TP53")
 
-## pancan_pcawg_2020 RNA-seq ====
+## Pan-cancer analysis of whole genomes ====
 studyId <- "pancan_pcawg_2020"
-mp <- molecularProfiles(studyId = studyId)
-molecularProfileId <- mp[["molecularProfileId"]][[1L]]
+mp <- molecularProfiles(studyId)
+molecularProfileId <- rownames(mp)[[1L]]
 x <- molecularData(
     studyId = studyId,
     molecularProfileId = molecularProfileId,
@@ -94,8 +83,13 @@ x <- molecularData(
 print(x)
 
 ## CCLE Broad 2019 ====
-cancerStudy <- "ccle_broad_2019"
-## FIXME Get the molecular profile ID example here.
-x <- molecularData(cancerStudy = cancerStudy, geneNames = geneNames)
+studyId <- "ccle_broad_2019"
+mp <- molecularProfiles(studyId)
+molecularProfileId <- rownames(mp)[[1L]]
+x <- molecularData(
+    studyId = studyId,
+    molecularProfileId = molecularProfileId,
+    geneNames = geneNames
+)
 print(x)
 }
