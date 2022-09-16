@@ -2,17 +2,25 @@
 % Please edit documentation in R/molecularData.R
 \name{molecularData}
 \alias{molecularData}
-\title{Get molecular (i.e. expression) data}
+\title{Get molecular data}
 \usage{
 molecularData(studyId, molecularProfileId, geneNames, .api = NULL)
 }
 \arguments{
+\item{studyId}{\code{character(1)}.
+Cancer study identifier (e.g. \code{"ccle_broad_2019"}).
+Refer to \code{\link[=cancerStudies]{cancerStudies()}} for details.}
+
+\item{molecularProfileId}{\code{character(1)}.
+Molecular profile identifier (e.g. \code{"ccle_broad_2019_cna"}).
+Refer to \code{\link[=molecularProfiles]{molecularProfiles()}} for details.}
+
 \item{geneNames}{\code{character}.
 HUGO gene symbols (e.g. \code{"MYC"}, \code{"TP53"}).}
 
-\item{cancerStudy}{\code{character(1)}.
-Cancer study identifier (e.g. ""acc_tcga_pan_can_atlas_2018").
-See \code{cancerStudies()} for details.}
+\item{.api}{\code{cBioPortal} or \code{NULL}.
+\code{cBioPortal} API connection.
+Can be left \code{NULL} by default.}
 }
 \value{
 \code{SummarizedExperiment}.
@@ -20,7 +28,8 @@ Samples (e.g. patient tumors) in the columns and genes in the rows.
 Note that rownames return as Entrez gene identifiers.
 }
 \description{
-Get molecular (i.e. expression) data
+Get expression data, including copy number amplification (CNA) and
+normalized RNA-seq.
 }
 \details{
 Examples of cancer studies with different mRNA data types:
@@ -33,7 +42,7 @@ Examples of cancer studies with different mRNA data types:
 \note{
 Updated 2022-09-16.
 }
-\section{The cBioPortal Z-Score calculation method}{
+\section{cBioPortal z-score calculation method}{
 
 
 cBioPortal currently generates two z-score profiles using two different base

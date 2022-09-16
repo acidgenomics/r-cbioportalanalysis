@@ -1,4 +1,7 @@
-#' Get molecular (i.e. expression) data
+#' Get molecular data
+#'
+#' Get expression data, including copy number amplification (CNA) and
+#' normalized RNA-seq.
 #'
 #' @export
 #' @note Updated 2022-09-16.
@@ -10,7 +13,7 @@
 #' - RNA-seq v1: `nbl_target_2018_pub_rna_seq_mrna`.
 #' - Microarray: `gbm_tcga_pub_mrna`.
 #'
-#' @section The cBioPortal Z-Score calculation method:
+#' @section cBioPortal z-score calculation method:
 #'
 #' cBioPortal currently generates two z-score profiles using two different base
 #' populations:
@@ -42,12 +45,7 @@
 #' - https://github.com/cBioPortal/cbioportal/blob/master/docs/
 #' Z-Score-normalization-script.md
 #'
-#' @param cancerStudy `character(1)`.
-#' Cancer study identifier (e.g. ""acc_tcga_pan_can_atlas_2018").
-#' See `cancerStudies()` for details.
-#'
-#' @param geneNames `character`.
-#' HUGO gene symbols (e.g. `"MYC"`, `"TP53"`).
+#' @inheritParams params
 #'
 #' @return `SummarizedExperiment`.
 #' Samples (e.g. patient tumors) in the columns and genes in the rows.
@@ -132,7 +130,9 @@ molecularData <-
         colnames(long) <- c("rowname", "colname", "value")
         wide <- cast(object = long, colnames = "colname", values = "value")
         assay <- as.matrix(wide)
-        rowData <- EntrezGeneInfo(organism = "Homo sapiens")
+        suppressMessages({
+            rowData <- EntrezGeneInfo(organism = "Homo sapiens")
+        })
         rowData <- as(rowData, "DataFrame")
         colData <- clinicalData(studyId)
         assert(

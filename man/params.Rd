@@ -4,9 +4,12 @@
 \alias{params}
 \title{Shared parameter documentation}
 \arguments{
-\item{caseList}{\code{character(1)}.
-Case list identifier (e.g. "ccle_broad_2019_sequenced").
-Refer to \code{\link[=caseLists]{caseLists()}} for details.}
+\item{geneNames}{\code{character}.
+HUGO gene symbols (e.g. \code{"MYC"}, \code{"TP53"}).}
+
+\item{molecularProfileId}{\code{character(1)}.
+Molecular profile identifier (e.g. \code{"ccle_broad_2019_cna"}).
+Refer to \code{\link[=molecularProfiles]{molecularProfiles()}} for details.}
 
 \item{studyId}{\code{character(1)}.
 Cancer study identifier (e.g. \code{"ccle_broad_2019"}).
