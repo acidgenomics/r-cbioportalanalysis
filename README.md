@@ -19,6 +19,19 @@ install.packages(
 )
 ```
 
+### [Docker][] method
+
+```sh
+image='acidgenomics/r-packages:cbioportalanalysis'
+workdir='/mnt/work'
+docker pull "$image"
+docker run -it \
+    --volume="${PWD}:${workdir}" \
+    --workdir="$workdir" \
+    "$image" \
+    R
+```
+
 ## Details
 
 - [RNA expression values](https://docs.cbioportal.org/user-guide/faq/#rna)
@@ -29,4 +42,5 @@ Currently using [cgdsr][] internally, but am evaluating the new [cBioPortalData]
 [cbioportal]: https://www.cbioportal.org/
 [cbioportaldata]: https://bioconductor.org/packages/cBioPortalData/
 [cgdsr]: https://cran.r-project.org/package=cgdsr
+[docker]: https://www.docker.com/
 [r]: https://www.r-project.org/
