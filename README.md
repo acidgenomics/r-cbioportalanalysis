@@ -37,10 +37,6 @@ docker run -it \
 - [RNA expression values](https://docs.cbioportal.org/user-guide/faq/#rna)
 - [Z-score normalization method](https://github.com/cBioPortal/cbioportal/blob/master/docs/Z-Score-normalization-script.md)
 
-Currently using [cgdsr][] internally, but am evaluating the new [cBioPortalData][] package for inclusion in a future release.
-
 [cbioportal]: https://www.cbioportal.org/
-[cbioportaldata]: https://bioconductor.org/packages/cBioPortalData/
-[cgdsr]: https://cran.r-project.org/package=cgdsr
 [docker]: https://www.docker.com/
 [r]: https://www.r-project.org/

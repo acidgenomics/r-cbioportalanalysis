@@ -1,6 +1,7 @@
 #+TITLE: cBioPortalAnalysis
 #+STARTUP: content
 * Development
+** TODO Need to improve rowname handling during assay export, currently getting dropped.
 ** TODO Store TCGA study abbreviations
     https://gdc.cancer.gov/resources-tcga-users/tcga-code-tables/tcga-study-abbreviations
 ** TODO Finish migrating package from cgdsr to cBioPortalData
