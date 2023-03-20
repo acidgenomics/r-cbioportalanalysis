@@ -23,7 +23,7 @@ NULL
 
 #' @importFrom AcidCLI abort alert alertWarning
 #' @importFrom AcidExperiment makeSummarizedExperiment
-#' @importFrom AcidGenomes EntrezGeneInfo
+#' @importFrom AcidGenomes NcbiGeneInfo
 #' @importFrom IRanges CharacterList IntegerList
 #' @importFrom cBioPortalData cBioPortal getStudies
 #' @importFrom goalie areSetEqual assert hasColnames hasNoDuplicates hasRownames

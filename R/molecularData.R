@@ -131,7 +131,7 @@ molecularData <-
         wide <- cast(object = long, colnames = "colname", values = "value")
         assay <- as.matrix(wide)
         suppressMessages({
-            rowData <- EntrezGeneInfo(organism = "Homo sapiens")
+            rowData <- NcbiGeneInfo(organism = "Homo sapiens")
         })
         rowData <- as(rowData, "DataFrame")
         colData <- clinicalData(studyId)
