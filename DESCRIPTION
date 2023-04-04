@@ -38,6 +38,7 @@ Imports:
     syntactic (>= 0.6.3)
 Suggests:
     MultiAssayExperiment (>= 1.22.0),
+    RTCGAToolbox,
     curatedTCGAData,
     testthat (>= 3.0.0)
 Additional_repositories: https://r.acidgenomics.com
