@@ -14,25 +14,43 @@ buildAllPacks <- function(dir = getwd()) {
     idx <- which(df[["packBuild"]] == TRUE)
     df <- df[idx, ]
     studyIds <- sort(df[["studyId"]][idx])
-    cacheDir <- AcidBase::tempdir2()
+    badStudyIds <- "brca_tcga_pan_can_atlas_2018"
+    studyIds <- setdiff(studyIds, badStudyIds)
+    cacheDir <- tempdir2()
     cBioPortalData::setCache(
         directory = cacheDir,
         verbose = FALSE,
         ask = FALSE
     )
-    for (studyId in studyIds) {
-        file <- file.path(dir, paste0(studyId, ".rds"))
-        if (isAFile(file)) {
-            continue()
+    files <- lapply(
+        X = studyIds,
+        FUN = function(studyId) {
+            file <- file.path(dir, paste0(studyId, ".rds"))
+            if (isAFile(file)) {
+                return(file)
+            }
+            object <- tryCatch(
+                expr = {
+                    cBioDataPack(
+                        cancer_study_id = studyId,
+                        use_cache = TRUE,
+                        cleanup = TRUE,
+                        ask = FALSE
+                    )
+                },
+                error = function(e) {
+                    message(e)
+                    NULL
+                }
+            )
+            if (is.null(object)) {
+                return(NULL)
+            }
+            saveRDS(object = object, file = file)
+            file
         }
-        object <- cBioDataPack(
-            cancer_study_id = studyId,
-            use_cache = TRUE,
-            cleanup = TRUE,
-            ask = FALSE
-        )
-        saveRDS(object = object, file = file)
-    }
-    AcidBase::unlink2(cacheDir)
-    invisible(studies)
+    )
+    files <- Filter(Negate(is.null), files)
+    unlink2(cacheDir)
+    invisible(files)
 }
