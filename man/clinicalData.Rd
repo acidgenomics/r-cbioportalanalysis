@@ -16,13 +16,13 @@ Refer to \code{\link[=cancerStudies]{cancerStudies()}} for details.}
 Can be left \code{NULL} by default.}
 }
 \value{
-\code{DataFrame}.
+\code{DFrame}.
 }
 \description{
 Get available clinical data for samples in a case list
 }
 \note{
-Updated 2022-09-15.
+Updated 2023-05-03.
 }
 \examples{
 x <- clinicalData(studyId = "pancan_pcawg_2020")

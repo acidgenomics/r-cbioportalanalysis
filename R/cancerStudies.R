@@ -3,9 +3,9 @@
 #' Queries for datasets available on Cancer Genomics Data Server (CDGS).
 #'
 #' @export
-#' @note Updated 2022-09-15.
+#' @note Updated 2023-05-03.
 #'
-#' @return `DataFrame`.
+#' @return `DFrame`.
 #'
 #' @examples
 #' x <- cancerStudies()
@@ -27,7 +27,7 @@ cancerStudies <- function(.api = NULL) {
         x = c("description", "groups", "name", "pmid", "studyId"),
         y = colnames(x)
     ))
-    x <- as(x, "DataFrame")
+    x <- as(x, "DFrame")
     rownames(x) <- x[["studyId"]]
     x <- x[sort(rownames(x)), ]
     x[["groups"]] <- CharacterList(strsplit(

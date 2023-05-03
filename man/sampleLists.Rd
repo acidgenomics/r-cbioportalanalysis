@@ -16,7 +16,7 @@ Refer to \code{\link[=cancerStudies]{cancerStudies()}} for details.}
 Can be left \code{NULL} by default.}
 }
 \value{
-\code{DataFrame}.
+\code{DFrame}.
 }
 \description{
 Get available case lists for a specific cancer study
@@ -26,7 +26,7 @@ This doesn't currently return samples with specific RNA-seq information
 for \code{pancan_pcawg_2020}. Use \code{molecularProfiles} for that instead.
 }
 \note{
-Updated 2022-09-15.
+Updated 2023-05-03.
 }
 \examples{
 x <- sampleLists(studyId = "ccle_broad_2019")

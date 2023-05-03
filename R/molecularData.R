@@ -126,14 +126,14 @@ molecularData <-
             )
         )
         long <- x[, c("entrezGeneId", "sampleId", "value")]
-        long <- as(long, "DataFrame")
+        long <- as(long, "DFrame")
         colnames(long) <- c("rowname", "colname", "value")
         wide <- cast(object = long, colnames = "colname", values = "value")
         assay <- as.matrix(wide)
         suppressMessages({
             rowData <- NcbiGeneInfo(organism = "Homo sapiens")
         })
-        rowData <- as(rowData, "DataFrame")
+        rowData <- as(rowData, "DFrame")
         colData <- clinicalData(studyId)
         assert(
             isSubset(rownames(assay), rownames(rowData)),

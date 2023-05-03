@@ -24,7 +24,7 @@ sampleInfo <-
             ## Usage of "META" here is currently buggy.
             projection = "DETAILED"
         )
-        x <- as(x, "DataFrame")
+        x <- as(x, "DFrame")
         colnames(x) <- camelCase(colnames(x), strict = TRUE)
         assert(hasNoDuplicates(x[["sampleId"]]))
         rownames(x) <- x[["sampleId"]]

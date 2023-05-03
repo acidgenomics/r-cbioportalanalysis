@@ -1,7 +1,7 @@
 #' Get available clinical data for samples in a case list
 #'
 #' @export
-#' @note Updated 2022-09-15.
+#' @note Updated 2023-05-03.
 #'
 #' @inheritParams params
 #'
@@ -9,7 +9,7 @@
 #' - `caseLists()`.
 #' - `cancerStudies()`.
 #'
-#' @return `DataFrame`.
+#' @return `DFrame`.
 #'
 #' @examples
 #' x <- clinicalData(studyId = "pancan_pcawg_2020")
@@ -30,7 +30,7 @@ clinicalData <- function(studyId, .api = NULL) {
         is.data.frame(x),
         hasNoDuplicates(x[["sampleId"]])
     )
-    x <- as(x, "DataFrame")
+    x <- as(x, "DFrame")
     rownames(x) <- x[["sampleId"]]
     colnames(x) <- camelCase(colnames(x), strict = TRUE)
     x <- x[sort(rownames(x)), sort(colnames(x))]

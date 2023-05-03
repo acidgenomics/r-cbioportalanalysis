@@ -17,14 +17,14 @@ Refer to \code{\link[=cancerStudies]{cancerStudies()}} for details.}
 Can be left \code{NULL} by default.}
 }
 \value{
-\code{DataFrame}.
+\code{DFrame}.
 }
 \description{
 Get available molecular (i.e. genetic) data profiles for a specific cancer
 study
 }
 \note{
-Updated 2022-09-15.
+Updated 2023-05-03.
 }
 \examples{
 x <- molecularProfiles(studyId = "pancan_pcawg_2020")

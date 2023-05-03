@@ -7,13 +7,13 @@
 cancerStudies(.api = NULL)
 }
 \value{
-\code{DataFrame}.
+\code{DFrame}.
 }
 \description{
 Queries for datasets available on Cancer Genomics Data Server (CDGS).
 }
 \note{
-Updated 2022-09-15.
+Updated 2023-05-03.
 }
 \examples{
 x <- cancerStudies()

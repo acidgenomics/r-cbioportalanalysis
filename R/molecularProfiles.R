@@ -2,11 +2,11 @@
 #' study
 #'
 #' @export
-#' @note Updated 2022-09-15.
+#' @note Updated 2023-05-03.
 #'
 #' @inheritParams params
 #'
-#' @return `DataFrame`.
+#' @return `DFrame`.
 #'
 #' @examples
 #' x <- molecularProfiles(studyId = "pancan_pcawg_2020")
@@ -28,7 +28,7 @@ molecularProfiles <-
             is.data.frame(x),
             hasNoDuplicates(x[["molecularProfileId"]])
         )
-        x <- as(x, "DataFrame")
+        x <- as(x, "DFrame")
         rownames(x) <- x[["molecularProfileId"]]
         x <- x[sort(rownames(x)), sort(colnames(x))]
         x

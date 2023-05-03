@@ -1,7 +1,7 @@
 #' Get available case lists for a specific cancer study
 #'
 #' @export
-#' @note Updated 2022-09-15.
+#' @note Updated 2023-05-03.
 #'
 #' @details
 #' This doesn't currently return samples with specific RNA-seq information
@@ -9,7 +9,7 @@
 #'
 #' @inheritParams params
 #'
-#' @return `DataFrame`.
+#' @return `DFrame`.
 #'
 #' @seealso
 #' - [cancerStudies()].
@@ -45,7 +45,7 @@ sampleLists <- function(studyId, .api = NULL) {
             "studyId"
         )
     ))
-    x <- as(x, "DataFrame")
+    x <- as(x, "DFrame")
     rownames(x) <- x[["sampleListId"]]
     x <- x[sort(rownames(x)), ]
     x
