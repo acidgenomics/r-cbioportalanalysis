@@ -19,7 +19,7 @@ Can be left \code{NULL} by default.}
 Sample information
 }
 \note{
-Updated 2022-09-15.
+Updated 2023-05-03.
 }
 \examples{
 x <- sampleInfo(studyId = "pancan_pcawg_2020")

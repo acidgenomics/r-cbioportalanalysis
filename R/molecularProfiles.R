@@ -13,6 +13,7 @@
 #' print(x)
 molecularProfiles <-
     function(studyId, .api = NULL) {
+        assert(requireNamespaces("cBioPortalData"))
         if (is.null(.api)) {
             .api <- .api()
         }

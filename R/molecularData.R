@@ -1,7 +1,3 @@
-## FIXME Rename "entrezGeneId" to "ncbiGeneId".
-
-
-
 #' Get molecular data
 #'
 #' Get expression data, including copy number amplification (CNA) and
@@ -150,7 +146,7 @@ molecularData <-
         rownames(assay) <- rownames(rowData)
         assays <- list(assay)
         names(assays) <- molecularProfileId
-        makeSummarizedExperiment(
+        out <- makeSummarizedExperiment(
             assays = assays,
             rowData = rowData,
             colData = colData,
@@ -161,4 +157,5 @@ molecularData <-
             ),
             denylist = FALSE
         )
+        out
     }

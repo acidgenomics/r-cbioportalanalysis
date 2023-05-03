@@ -1,7 +1,7 @@
 #' Samples in sample lists
 #'
 #' @export
-#' @note Updated 2022-09-15.
+#' @note Updated 2023-05-03.
 #'
 #' @return `character`.
 #' Sample identifiers.
@@ -18,6 +18,7 @@ samplesInSampleLists <-
         sampleListIds,
         .api = NULL
     ) {
+        assert(requireNamespaces("cBioPortalData"))
         if (is.null(.api)) {
             .api <- .api()
         }

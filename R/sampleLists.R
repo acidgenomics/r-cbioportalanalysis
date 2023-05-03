@@ -18,6 +18,7 @@
 #' x <- sampleLists(studyId = "ccle_broad_2019")
 #' print(x)
 sampleLists <- function(studyId, .api = NULL) {
+    assert(requireNamespaces("cBioPortalData"))
     if (is.null(.api)) {
         .api <- .api()
     }

@@ -40,7 +40,7 @@ Examples of cancer studies with different mRNA data types:
 }
 }
 \note{
-Updated 2022-09-16.
+Updated 2023-05-03.
 }
 \section{cBioPortal z-score calculation method}{
 

@@ -14,7 +14,7 @@ Sample identifiers.
 Samples in sample lists
 }
 \note{
-Updated 2022-09-15.
+Updated 2023-05-03.
 }
 \examples{
 sampleListIds = c(
