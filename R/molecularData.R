@@ -1,10 +1,14 @@
+## FIXME Rename "entrezGeneId" to "ncbiGeneId".
+
+
+
 #' Get molecular data
 #'
 #' Get expression data, including copy number amplification (CNA) and
 #' normalized RNA-seq.
 #'
 #' @export
-#' @note Updated 2022-09-16.
+#' @note Updated 2023-05-03.
 #'
 #' @details
 #' Examples of cancer studies with different mRNA data types:
@@ -80,6 +84,7 @@ molecularData <-
              molecularProfileId,
              geneNames,
              .api = NULL) {
+        assert(requireNamespaces("cBioPortalData"))
         if (is.null(.api)) {
             .api <- .api()
         }

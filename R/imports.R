@@ -29,6 +29,6 @@ NULL
 #' @importFrom AcidGenomes NcbiGeneInfo
 #' @importFrom IRanges CharacterList IntegerList
 #' @importFrom goalie areSetEqual assert hasColnames hasNoDuplicates hasRownames
-#' hasRows isCharacter isInt isString isSubset
+#' hasRows isCharacter isInt isString isSubset requireNamespaces
 #' @importFrom methods as is
 NULL

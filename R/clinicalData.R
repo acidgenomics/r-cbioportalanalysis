@@ -15,6 +15,7 @@
 #' x <- clinicalData(studyId = "pancan_pcawg_2020")
 #' print(x)
 clinicalData <- function(studyId, .api = NULL) {
+    assert(requireNamespaces("cBioPortalData"))
     if (is.null(.api)) {
         .api <- .api()
     }

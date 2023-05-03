@@ -11,11 +11,12 @@
 #' x <- cancerStudies()
 #' print(x)
 cancerStudies <- function(.api = NULL) {
+    assert(requireNamespaces("cBioPortalData"))
     if (is.null(.api)) {
         .api <- .api()
     }
     assert(is(.api, "cBioPortal"))
-    x <- getStudies(api = .api, buildReport = TRUE)
+    x <- cBioPortalData::getStudies(api = .api, buildReport = TRUE)
     assert(
         is.data.frame(x),
         hasRows(x),
