@@ -11,7 +11,8 @@ NULL
 #' @importFrom AcidPlyr cast
 #' @importFrom BiocGenerics do.call lapply order rbind sort unique
 #' @importFrom IRanges gsub
-#'
+NULL
+
 #' @importMethodsFrom AcidPlyr cast
 #' @importMethodsFrom pipette sanitizeNA
 #' @importMethodsFrom syntactic camelCase makeDimnames makeNames
@@ -21,11 +22,12 @@ NULL
 
 ## Standard functions ==========================================================
 
+# > #' @importFrom cBioPortalData cBioPortal getStudies
+
 #' @importFrom AcidCLI abort alert alertWarning
 #' @importFrom AcidExperiment makeSummarizedExperiment
 #' @importFrom AcidGenomes NcbiGeneInfo
 #' @importFrom IRanges CharacterList IntegerList
-#' @importFrom cBioPortalData cBioPortal getStudies
 #' @importFrom goalie areSetEqual assert hasColnames hasNoDuplicates hasRownames
 #' hasRows isCharacter isInt isString isSubset
 #' @importFrom methods as is
