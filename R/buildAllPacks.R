@@ -31,6 +31,8 @@ buildAllPacks <- function(dir = getwd()) {
             }
             object <- tryCatch(
                 expr = {
+                    ## FIXME Consider suppressing messages here to make this
+                    ## less busy.
                     cBioDataPack(
                         cancer_study_id = studyId,
                         use_cache = TRUE,
@@ -39,6 +41,8 @@ buildAllPacks <- function(dir = getwd()) {
                     )
                 },
                 error = function(e) {
+                    ## FIXME Just add an alert message to inform user of
+                    ## pack build failure.
                     message(e)
                     NULL
                 }
