@@ -74,6 +74,7 @@ buildAllPacks <- function(inputDir = getwd(), outputDir = getwd()) {
         outputDir = outputDir
     )
     rdsFiles <- Filter(Negate(is.null), rdsFiles)
+    ## FIXME Inform the user on which datasets failed to process more clearly.
     unlink2(cacheDir)
     invisible(rdsFiles)
 }
