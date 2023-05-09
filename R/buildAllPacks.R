@@ -44,11 +44,11 @@ buildAllPacks <- function(inputDir = getwd(), outputDir = getwd()) {
             }
             object <- tryCatch(
                 expr = {
-                    filepath <- untarStudy(
+                    filepath <- cBioPortalData::untarStudy(
                         cancer_study_file = tarball,
                         exdir = cacheDir
                     )
-                    object <- loadStudy(
+                    object <- cBioPortalData::loadStudy(
                         filepath = filepath,
                         names.field = c(
                             "Hugo_Symbol",
