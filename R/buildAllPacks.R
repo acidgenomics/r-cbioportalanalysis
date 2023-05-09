@@ -7,7 +7,7 @@
 #' Build all supported data packs
 #'
 #' @export
-#' @note Updated 2023-05-03
+#' @note Updated 2023-05-09.
 #'
 #' @param dir `character(1)`.
 #' Target directory.
@@ -21,9 +21,14 @@ buildAllPacks <- function(dir = getwd()) {
     )
     df <- cancerStudies()
     idx <- which(df[["packBuild"]] == TRUE)
-    df <- df[idx, ]
+    df <- df[idx, , drop = FALSE]
     studyIds <- sort(df[["studyId"]][idx])
-    badStudyIds <- "brca_tcga_pan_can_atlas_2018"
+    denylist <- c(
+        "brca_tcga_pan_can_atlas_2018",
+        "coadread_tcga_pan_can_atlas_2018",
+        "ov_tcga_pan_can_atlas_2018",
+        "sarc_tcga_pan_can_atlas_2018"
+    )
     studyIds <- setdiff(studyIds, badStudyIds)
     cacheDir <- tempdir2()
     cBioPortalData::setCache(
@@ -40,8 +45,6 @@ buildAllPacks <- function(dir = getwd()) {
             }
             object <- tryCatch(
                 expr = {
-                    ## FIXME Consider suppressing messages here to make this
-                    ## less busy.
                     cBioDataPack(
                         cancer_study_id = studyId,
                         use_cache = TRUE,
@@ -50,8 +53,6 @@ buildAllPacks <- function(dir = getwd()) {
                     )
                 },
                 error = function(e) {
-                    ## FIXME Just add an alert message to inform user of
-                    ## pack build failure.
                     message(e)
                     NULL
                 }
