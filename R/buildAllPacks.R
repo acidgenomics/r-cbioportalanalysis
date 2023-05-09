@@ -1,3 +1,9 @@
+## FIXME Rework this to use `loadStudy` internally, rather than relying on
+## cDataPack...
+## This will help add processing support for all studies.
+
+
+
 #' Build all supported data packs
 #'
 #' @export

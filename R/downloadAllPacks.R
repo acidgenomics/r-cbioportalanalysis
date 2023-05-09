@@ -12,7 +12,10 @@ downloadAllPacks <- function(dir = getwd()) {
     df <- cancerStudies()
     studies <- sort(df[["studyId"]])
     denylist <- c(
-        "bowel_colitis_msk_2022"
+        "bowel_colitis_msk_2022",
+        "makeanimpact_ccr_2023",
+        "mtnn_msk_2022",
+        "nbl_msk_2023"
     )
     studies <- setdiff(studies, denylist)
     baseUrl <- "https://cbioportal-datahub.s3.amazonaws.com"
