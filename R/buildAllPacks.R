@@ -3,6 +3,9 @@
 #' @export
 #' @note Updated 2023-05-03
 #'
+#' @param dir `character(1)`.
+#' Target directory.
+#'
 #' @return `character`.
 #' Named character vector containing RDS file paths.
 buildAllPacks <- function(dir = getwd()) {

@@ -1,0 +1,36 @@
+#' Download all cBioPortal study data packs
+#'
+#' @export
+#' @note Updated 2023-05-09.
+#'
+#' @param dir `character(1)`.
+#' Target directory.
+#'
+#' @return `character`.
+#' File paths of study data pack tarballs.
+downloadAllPacks <- function(dir = getwd()) {
+    df <- cancerStudies()
+    studies <- sort(df[["studyId"]])
+    denylist <- c(
+        "bowel_colitis_msk_2022"
+    )
+    studies <- setdiff(studies, denylist)
+    baseUrl <- "https://cbioportal-datahub.s3.amazonaws.com"
+    files <- vapply(
+        X = studies,
+        FUN = function(study, baseUrl, dir) {
+            bn <- paste0(study, ".tar.gz")
+            url <- pasteURL(baseUrl, bn)
+            destfile <- file.path(dir, bn)
+            if (isTRUE(file.exists(destfile))) {
+                return(destfile)
+            }
+            download.file(url = url, destfile = destfile)
+            destfile
+        },
+        FUN.VALUE = character(1L),
+        baseUrl = baseUrl,
+        dir = dir
+    )
+    files
+}

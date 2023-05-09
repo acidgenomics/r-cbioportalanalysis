@@ -6,6 +6,10 @@
 \usage{
 buildAllPacks(dir = getwd())
 }
+\arguments{
+\item{dir}{\code{character(1)}.
+Target directory.}
+}
 \value{
 \code{character}.
 Named character vector containing RDS file paths.

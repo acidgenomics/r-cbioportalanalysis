@@ -4,6 +4,8 @@
 \name{reexports}
 \alias{reexports}
 \alias{cBioDataPack}
+\alias{loadStudy}
+\alias{untarStudy}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -11,6 +13,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{cBioPortalData}{\code{\link[cBioPortalData]{cBioDataPack}}}
+  \item{cBioPortalData}{\code{\link[cBioPortalData]{cBioDataPack}}, \code{\link[cBioPortalData:downloadStudy]{loadStudy}}, \code{\link[cBioPortalData:downloadStudy]{untarStudy}}}
 }}
 

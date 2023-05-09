@@ -24,7 +24,7 @@ NULL
 
 # > #' @importFrom cBioPortalData cBioPortal getStudies
 
-#' @importFrom AcidBase tempdir2 unlink2
+#' @importFrom AcidBase pasteURL tempdir2 unlink2
 #' @importFrom AcidCLI abort alert alertWarning
 #' @importFrom AcidExperiment makeSummarizedExperiment
 #' @importFrom AcidGenomes NcbiGeneInfo
