@@ -1,56 +1,63 @@
-## FIXME Rework this to use `loadStudy` internally, rather than relying on
-## cDataPack...
-## This will help add processing support for all studies.
-
-
-
 #' Build all supported data packs
 #'
 #' @export
 #' @note Updated 2023-05-09.
 #'
-#' @param dir `character(1)`.
-#' Target directory.
+#' @param inputDir `character(1)`.
+#' Input directory containing downloaded tarballs (`.tar.gz` files).
+#'
+#' @param outputDir `character(1)`.
+#' Output directory where to save RDS files.
 #'
 #' @return `character`.
 #' Named character vector containing RDS file paths.
-buildAllPacks <- function(dir = getwd()) {
+buildAllPacks <- function(inputDir = getwd(), outputDir = getwd()) {
     assert(
         requireNamespaces("cBioPortalData"),
-        isADir(dir)
+        isADir(inputDir)
     )
+    tarballs <- sort(list.files(
+        path = inputDir,
+        pattern = "*.tar.gz",
+        full.names = TRUE,
+        recursive = FALSE
+    ))
+    assert(hasLength(tarballs))
+    outputDir <- initDir(outputDir)
     df <- cancerStudies()
-    idx <- which(df[["packBuild"]] == TRUE)
-    df <- df[idx, , drop = FALSE]
-    studyIds <- sort(df[["studyId"]][idx])
-    denylist <- c(
-        "brca_tcga_pan_can_atlas_2018",
-        "coadread_tcga_pan_can_atlas_2018",
-        "ov_tcga_pan_can_atlas_2018",
-        "sarc_tcga_pan_can_atlas_2018"
-    )
-    studyIds <- setdiff(studyIds, badStudyIds)
+    studyIds <- sort(df[["studyId"]])
+    assert(areIntersectingSets(x = basenameSansExt(tarballs), y = studyIds))
     cacheDir <- tempdir2()
     cBioPortalData::setCache(
         directory = cacheDir,
         verbose = FALSE,
         ask = FALSE
     )
-    files <- lapply(
-        X = studyIds,
-        FUN = function(studyId) {
-            file <- file.path(dir, paste0(studyId, ".rds"))
+    rdsFiles <- lapply(
+        X = tarballs,
+        FUN = function(tarball, cacheDir, outputDir) {
+            studyId <- basenameSansExt(tarball)
+            alert(studyId)
+            rdsFile <- file.path(outputDir, paste0(studyId, ".rds"))
             if (isAFile(file)) {
                 return(file)
             }
             object <- tryCatch(
                 expr = {
-                    cBioDataPack(
-                        cancer_study_id = studyId,
-                        use_cache = TRUE,
-                        cleanup = TRUE,
-                        ask = FALSE
+                    filepath <- untarStudy(
+                        cancer_study_file = tarball,
+                        exdir = cacheDir
                     )
+                    object <- loadStudy(
+                        filepath = filepath,
+                        names.field = c(
+                            "Hugo_Symbol",
+                            "Entrez_Gene_Id",
+                            "Gene"
+                        ),
+                        cleanup = TRUE
+                    )
+                    object
                 },
                 error = function(e) {
                     message(e)
@@ -60,11 +67,13 @@ buildAllPacks <- function(dir = getwd()) {
             if (is.null(object)) {
                 return(NULL)
             }
-            saveRDS(object = object, file = file)
-            file
-        }
+            saveRDS(object = object, file = rdsFile)
+            rdsFile
+        },
+        cacheDir = cacheDir,
+        outputDir = outputDir
     )
-    files <- Filter(Negate(is.null), files)
+    rdsFiles <- Filter(Negate(is.null), rdsFiles)
     unlink2(cacheDir)
-    invisible(files)
+    invisible(rdsFiles)
 }

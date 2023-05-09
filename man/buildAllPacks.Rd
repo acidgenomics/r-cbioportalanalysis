@@ -4,11 +4,14 @@
 \alias{buildAllPacks}
 \title{Build all supported data packs}
 \usage{
-buildAllPacks(dir = getwd())
+buildAllPacks(inputDir = getwd(), outputDir = getwd())
 }
 \arguments{
-\item{dir}{\code{character(1)}.
-Target directory.}
+\item{inputDir}{\code{character(1)}.
+Input directory containing downloaded tarballs (\code{.tar.gz} files).}
+
+\item{outputDir}{\code{character(1)}.
+Output directory where to save RDS files.}
 }
 \value{
 \code{character}.
@@ -18,5 +21,5 @@ Named character vector containing RDS file paths.
 Build all supported data packs
 }
 \note{
-Updated 2023-05-03
+Updated 2023-05-09.
 }

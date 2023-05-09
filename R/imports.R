@@ -24,12 +24,13 @@ NULL
 
 # > #' @importFrom cBioPortalData cBioPortal getStudies
 
-#' @importFrom AcidBase pasteURL tempdir2 unlink2
+#' @importFrom AcidBase basenameSansExt initDir pasteURL tempdir2 unlink2
 #' @importFrom AcidCLI abort alert alertWarning
 #' @importFrom AcidExperiment makeSummarizedExperiment
 #' @importFrom AcidGenomes NcbiGeneInfo
 #' @importFrom IRanges CharacterList IntegerList
-#' @importFrom goalie areSetEqual assert hasColnames hasNoDuplicates hasRownames
-#' hasRows isADir isAFile isCharacter isInt isString isSubset requireNamespaces
+#' @importFrom goalie areIntersectingSets areSetEqual assert hasColnames
+#' hasLength hasNoDuplicates hasRownames hasRows isADir isAFile isCharacter
+#' isInt isString isSubset requireNamespaces
 #' @importFrom methods as is
 NULL
