@@ -28,7 +28,7 @@ downloadAllPacks <- function(dir = getwd()) {
         X = studies,
         FUN = function(study, baseUrl, dir) {
             bn <- paste0(study, ".tar.gz")
-            url <- pasteURL(baseUrl, bn)
+            url <- pasteUrl(baseUrl, bn)
             destfile <- file.path(dir, bn)
             if (isTRUE(file.exists(destfile))) {
                 return(destfile)
