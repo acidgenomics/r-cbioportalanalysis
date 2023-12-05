@@ -2,7 +2,7 @@ Package: cBioPortalAnalysis
 Title: cBioPortal Analysis Utilities
 Description: Toolkit for performing queries on cBioPortal.
 Version: 0.2.0.9000
-Date: 2023-09-27
+Date: 2023-10-05
 Authors@R: c(
     person(
         given = "Michael",
@@ -30,6 +30,7 @@ Imports:
     AcidPlyr (>= 0.3.10),
     BiocGenerics (>= 0.46.0),
     IRanges (>= 2.34.0),
+    MultiAssayExperiment (>= 1.26.0),
     S4Vectors (>= 0.38.0),
     cBioPortalData (>= 2.12.0),
     goalie (>= 0.6.9),
@@ -37,7 +38,6 @@ Imports:
     syntactic (>= 0.6.6),
     methods
 Suggests:
-    MultiAssayExperiment (>= 1.26.0),
     testthat (>= 3.1.7)
 Additional_repositories: https://r.acidgenomics.com
 Config/testthat/edition: 3

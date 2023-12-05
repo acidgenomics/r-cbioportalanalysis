@@ -33,6 +33,7 @@ downloadAllPacks <- function(dir = getwd()) {
             if (isTRUE(file.exists(destfile))) {
                 return(destfile)
             }
+            ## FIXME Use AcidBase::download here instead.
             download.file(url = url, destfile = destfile)
             destfile
         },

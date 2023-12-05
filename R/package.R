@@ -36,6 +36,7 @@ NULL
 #' @importFrom AcidExperiment makeSummarizedExperiment
 #' @importFrom AcidGenomes NcbiGeneInfo
 #' @importFrom IRanges CharacterList IntegerList
+#' @importFrom MultiAssayExperiment experiments sampleMap
 #' @importFrom goalie areIntersectingSets areSetEqual assert hasColnames
 #' hasLength hasNoDuplicates hasRownames hasRows isADir isAFile isCharacter
 #' isInt isString isSubset requireNamespaces
