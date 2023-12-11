@@ -14,7 +14,8 @@ NULL
 
 ## S4 generics and methods =====================================================
 
-#' @importFrom AcidGenerics camelCase makeDimnames makeNames sanitizeNa
+#' @importFrom AcidGenerics camelCase export makeDimnames makeNames
+#' predictSensitivity sanitizeNa
 #' @importFrom AcidPlyr cast
 #' @importFrom BiocGenerics do.call lapply order rbind sort unique
 #' @importFrom IRanges gsub
