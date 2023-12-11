@@ -163,6 +163,7 @@ NULL
             yes = "sensitive",
             no = "insensitive"
         )
+        ## FIXME Bind useful colData here.
         out <- DataFrame(
             "ds" = dsj,
             "dr" = drj,
