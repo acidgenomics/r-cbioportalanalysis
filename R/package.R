@@ -33,15 +33,16 @@ NULL
 
 # > #' @importFrom cBioPortalData cBioPortal getStudies
 
-#' @importFrom AcidBase basenameSansExt initDir pasteUrl tempdir2 unlink2
+#' @importFrom AcidBase basenameSansExt dupes initDir pasteUrl tempdir2 unlink2
 #' @importFrom AcidCLI abort alert alertWarning toInlineString
 #' @importFrom AcidExperiment makeSummarizedExperiment
 #' @importFrom AcidGenomes NcbiGeneInfo
 #' @importFrom IRanges CharacterList IntegerList
 #' @importFrom MultiAssayExperiment experiments sampleMap
 #' @importFrom goalie areDisjointSets areIntersectingSets areSetEqual assert
-#' hasColnames hasLength hasNoDuplicates hasRownames hasRows isADir isAFile
-#' isCharacter isInt isString isSubset requireNamespaces
+#' hasColnames hasDuplicates hasLength hasNoDuplicates hasRownames hasRows
+#' isADir isAFile isCharacter isInt isMatchingFixed isNegative isPositive
+#' isScalarNumeric isString isSubset requireNamespaces
 #' @importFrom matrixStats colSums2 rowMaxs rowMins
 #' @importFrom methods as is
 NULL

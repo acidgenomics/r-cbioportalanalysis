@@ -1,7 +1,3 @@
-## FIXME Need to get the RNA-seq experiment here.
-
-
-
 #' @name predictSensitivity
 #' @inherit AcidGenerics::predictSensitivity
 #' @note Updated 2023-12-11.
@@ -23,6 +19,9 @@
 #' @param downregulated `character`.
 #' Genes observed to be downregulated by treatment.
 #'
+#' @param sensitiveCutoff `numeric(1)`.
+#' Euclidean distance (ds/dr) ratio cutoff to define as sensitive.
+#'
 #' @return `DFrame`.
 #'
 #' @examples
@@ -35,6 +34,7 @@
 #' ## > downregulated <- genes[6L:10L]
 #' ## > df <- predictSensitivity(
 #' ## >     object = object,
+#' ## >     experiment = "mrna_seq_v2_rsem_zscores_ref_all_samples"
 #' ## >     upregulated = upregulated,
 #' ## >     downregulated = downregulated
 #' ## > )
@@ -43,14 +43,13 @@ NULL
 
 
 
-## FIXME Assert that user has input zscore experiment.
-
 ## Updated 2023-12-11.
 `predictSensitivity,MAE` <- # nolint
     function(object,
-             experiment = "mrna_seq_v2_rsem_zscores_ref_all_samples",
+             experiment,
              upregulated,
-             downregulated) {
+             downregulated,
+             sensitiveCutoff = 1L) {
         assert(
             validObject(object),
             isString(experiment),
@@ -60,7 +59,8 @@ NULL
             isCharacter(downregulated),
             hasNoDuplicates(upregulated),
             hasNoDuplicates(downregulated),
-            areDisjointSets(x = upregulated, y = downregulated)
+            areDisjointSets(x = upregulated, y = downregulated),
+            isScalarNumeric(sensitiveCutoff)
         )
         cd <- colData(object)
         se <- experiments(object)[[experiment]]
@@ -91,7 +91,7 @@ NULL
                 ),
                 toInlineString(dupes)
             ))
-            i <- rowData(se)[["geneName"]] %in% dupes
+            i <- !rowData(se)[["geneName"]] %in% dupes
             se <- se[i, , drop = FALSE]
         }
         ## Our `mapGenesToRownames` function currently requires "geneName"
@@ -159,25 +159,23 @@ NULL
         ratio <- dsj / drj
         ## Indicate whether we predict sensitive.
         pred <- ifelse(
-            test = dsj <= drj,
+            test = ratio < sensitiveCutoff,
             yes = "sensitive",
             no = "insensitive"
         )
         out <- DataFrame(
-            "drj" = drj,
-            "dsj" = dsj,
+            "ds" = dsj,
+            "dr" = drj,
             "ratio" = ratio,
             "prediction" = pred,
             row.names = colnames(se)
         )
-        ## Return with additional metadata useful for biologists.
-        cd <- .simpleColData(object)
-        out <- cbind(out, cd)
         ## Ensure we stash the user input in the output.
         metadata(out) <- list(
+            "experiment" = experiment,
             "upregulated" = upregulated,
             "downregulated" = downregulated,
-            "releaseDate" = metadata(object)[["releaseDate"]]
+            "sensitiveCutoff" = sensitiveCutoff
         )
         out
     }

@@ -9,9 +9,10 @@ predictSensitivity(object, ...)
 
 \S4method{predictSensitivity}{MultiAssayExperiment}(
   object,
-  experiment = "mrna_seq_v2_rsem_zscores_ref_all_samples",
+  experiment,
   upregulated,
-  downregulated
+  downregulated,
+  sensitiveCutoff = 1L
 )
 }
 \arguments{
@@ -27,6 +28,9 @@ Genes observed to be upregulated by treatment.}
 
 \item{downregulated}{\code{character}.
 Genes observed to be downregulated by treatment.}
+
+\item{sensitiveCutoff}{\code{numeric(1)}.
+Euclidean distance (ds/dr) ratio cutoff to define as sensitive.}
 }
 \value{
 \code{DFrame}.
@@ -51,6 +55,7 @@ Updated 2023-12-11.
 ## > downregulated <- genes[6L:10L]
 ## > df <- predictSensitivity(
 ## >     object = object,
+## >     experiment = "mrna_seq_v2_rsem_zscores_ref_all_samples"
 ## >     upregulated = upregulated,
 ## >     downregulated = downregulated
 ## > )
