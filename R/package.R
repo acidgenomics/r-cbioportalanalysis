@@ -18,6 +18,7 @@ NULL
 #' mapGenesToRownames predictSensitivity sanitizeNa
 #' @importFrom BiocGenerics do.call lapply order rbind sort unique
 #' @importFrom IRanges gsub
+#' @importFrom SummarizedExperiment colData colData<- rowData rowData<-
 NULL
 
 #' @importMethodsFrom AcidExperiment mapGenesToRownames
@@ -33,7 +34,7 @@ NULL
 # > #' @importFrom cBioPortalData cBioPortal getStudies
 
 #' @importFrom AcidBase basenameSansExt initDir pasteUrl tempdir2 unlink2
-#' @importFrom AcidCLI abort alert alertWarning
+#' @importFrom AcidCLI abort alert alertWarning toInlineString
 #' @importFrom AcidExperiment makeSummarizedExperiment
 #' @importFrom AcidGenomes NcbiGeneInfo
 #' @importFrom IRanges CharacterList IntegerList
@@ -41,5 +42,6 @@ NULL
 #' @importFrom goalie areDisjointSets areIntersectingSets areSetEqual assert
 #' hasColnames hasLength hasNoDuplicates hasRownames hasRows isADir isAFile
 #' isCharacter isInt isString isSubset requireNamespaces
+#' @importFrom matrixStats colSums2 rowMaxs rowMins
 #' @importFrom methods as is
 NULL

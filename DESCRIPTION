@@ -34,6 +34,7 @@ Imports:
     S4Vectors (>= 0.38.0),
     cBioPortalData (>= 2.12.0),
     goalie (>= 0.7.7),
+    matrixStats (>= 1.1.0),
     pipette (>= 0.15.0),
     syntactic (>= 0.7.1),
     methods

@@ -64,29 +64,62 @@ NULL
         )
         cd <- colData(object)
         se <- experiments(object)[[experiment]]
-        assert(isSubset(colnames(se), rownames(cd)))
+        assert(
+            is(se, "SummarizedExperiment"),
+            isSubset(colnames(se), rownames(cd))
+        )
         colData(se) <- cd[colnames(se), , drop = FALSE]
-
-
-
-
-        assert(is(se, "SummarizedExperiment"))
-        ## FIXME This doesn't work if geneId, geneName not defined.
+        colnames(colData(se)) <- camelCase(colnames(colData(se)))
+        colnames(rowData(se)) <- camelCase(colnames(rowData(se)))
+        colnames(rowData(se))[
+            colnames(rowData(se)) == "hugoSymbol"] <- "geneName"
+        colnames(rowData(se))[
+            colnames(rowData(se)) == "entrezGeneId"] <- "geneId"
+        if (all(is.na(rowData(se)[["geneId"]]))) {
+            rowData(se)[["geneId"]] <- rowData(se)[["geneName"]]
+        }
+        ## e.g. "sclc_ucologne_2015" dataset.
+        if (hasDuplicates(rowData(se)[["geneName"]])) {
+            dupes <- dupes(rowData(se)[["geneName"]])
+            alertWarning(sprintf(
+                "Dropping %d duplicate %s from analysis: %s.",
+                length(dupes),
+                ngettext(
+                    n = length(dupes),
+                    msg1 = "gene",
+                    msg2 = "genes"
+                ),
+                toInlineString(dupes)
+            ))
+            i <- rowData(se)[["geneName"]] %in% dupes
+            se <- se[i, , drop = FALSE]
+        }
+        ## Our `mapGenesToRownames` function currently requires "geneName"
+        ## and "geneId" columns to be defined in `rowData`. Consider relaxing
+        ## this requirement in a future AcidExperiment update.
         up <- mapGenesToRownames(
             object = se,
             genes = upregulated,
             strict = TRUE
         )
-        ## FIXME This doesn't work if geneId, geneName not defined.
         down <- mapGenesToRownames(
             object = se,
             genes = downregulated,
             strict = TRUE
         )
-        object <- object[c(up, down), , drop = FALSE]
-        ## FIXME Don't calculate zscore here -- ensure we use pre-calculated
-        ## zscore data.
-        mat <- zscore(object)
+        se <- se[c(up, down), , drop = FALSE]
+        mat <- assay(se)
+        assert(
+            isNegative(min(mat)),
+            isPositive(max(mat)),
+            msg = sprintf(
+                paste(
+                    "Experiment defined in {.var %s} doesn't appear to",
+                    "contain z-score normalized values."
+                ),
+                experiment
+            )
+        )
         ## Determine the maximum and minimum values per gene across the cells.
         geneMax <- rowMaxs(mat)
         geneMin <- rowMins(mat)
@@ -135,7 +168,7 @@ NULL
             "dsj" = dsj,
             "ratio" = ratio,
             "prediction" = pred,
-            row.names = colnames(object)
+            row.names = colnames(se)
         )
         ## Return with additional metadata useful for biologists.
         cd <- .simpleColData(object)
