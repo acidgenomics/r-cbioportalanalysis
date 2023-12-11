@@ -1,3 +1,7 @@
+## FIXME Need to get the RNA-seq experiment here.
+
+
+
 #' @name predictSensitivity
 #' @inherit AcidGenerics::predictSensitivity
 #' @note Updated 2023-12-11.
@@ -7,6 +11,11 @@
 #' known biomarker genes up- or down-regulated by a treatment of interest.
 #'
 #' @inheritParams AcidRoxygen::params
+#'
+#' @param experiment `character(1)`.
+#' Experiment name corresponding to RNA-seq zscores.
+#' We recommend using `"mrna_seq_rpkm_zscores_ref_all_samples"` for TCGA
+#' PanCancer datasets.
 #'
 #' @param upregulated `character`.
 #' Genes observed to be upregulated by treatment.
@@ -34,32 +43,49 @@ NULL
 
 
 
+## FIXME Assert that user has input zscore experiment.
+
 ## Updated 2023-12-11.
 `predictSensitivity,MAE` <- # nolint
     function(object,
+             experiment = "mrna_seq_v2_rsem_zscores_ref_all_samples",
              upregulated,
              downregulated) {
         assert(
             validObject(object),
+            isString(experiment),
+            isMatchingFixed(x = experiment, pattern = "_zscores_ref_"),
+            isSubset(experiment, names(experiments(object))),
             isCharacter(upregulated),
             isCharacter(downregulated),
             hasNoDuplicates(upregulated),
             hasNoDuplicates(downregulated),
             areDisjointSets(x = upregulated, y = downregulated)
         )
+        cd <- colData(object)
+        se <- experiments(object)[[experiment]]
+        assert(isSubset(colnames(se), rownames(cd)))
+        colData(se) <- cd[colnames(se), , drop = FALSE]
+
+
+
+
+        assert(is(se, "SummarizedExperiment"))
+        ## FIXME This doesn't work if geneId, geneName not defined.
         up <- mapGenesToRownames(
-            object = object,
+            object = se,
             genes = upregulated,
             strict = TRUE
         )
+        ## FIXME This doesn't work if geneId, geneName not defined.
         down <- mapGenesToRownames(
-            object = object,
+            object = se,
             genes = downregulated,
             strict = TRUE
         )
         object <- object[c(up, down), , drop = FALSE]
-        ## We are returning genes in rows, cells in columns. Some of our legacy
-        ## Python code uses a transposed matrix here.
+        ## FIXME Don't calculate zscore here -- ensure we use pre-calculated
+        ## zscore data.
         mat <- zscore(object)
         ## Determine the maximum and minimum values per gene across the cells.
         geneMax <- rowMaxs(mat)

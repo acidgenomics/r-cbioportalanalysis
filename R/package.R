@@ -14,13 +14,13 @@ NULL
 
 ## S4 generics and methods =====================================================
 
-#' @importFrom AcidGenerics camelCase export makeDimnames makeNames
-#' predictSensitivity sanitizeNa
-#' @importFrom AcidPlyr cast
+#' @importFrom AcidGenerics camelCase cast export makeDimnames makeNames
+#' mapGenesToRownames predictSensitivity sanitizeNa
 #' @importFrom BiocGenerics do.call lapply order rbind sort unique
 #' @importFrom IRanges gsub
 NULL
 
+#' @importMethodsFrom AcidExperiment mapGenesToRownames
 #' @importMethodsFrom AcidPlyr cast
 #' @importMethodsFrom pipette sanitizeNa
 #' @importMethodsFrom syntactic camelCase makeDimnames makeNames
@@ -38,8 +38,8 @@ NULL
 #' @importFrom AcidGenomes NcbiGeneInfo
 #' @importFrom IRanges CharacterList IntegerList
 #' @importFrom MultiAssayExperiment experiments sampleMap
-#' @importFrom goalie areIntersectingSets areSetEqual assert hasColnames
-#' hasLength hasNoDuplicates hasRownames hasRows isADir isAFile isCharacter
-#' isInt isString isSubset requireNamespaces
+#' @importFrom goalie areDisjointSets areIntersectingSets areSetEqual assert
+#' hasColnames hasLength hasNoDuplicates hasRownames hasRows isADir isAFile
+#' isCharacter isInt isString isSubset requireNamespaces
 #' @importFrom methods as is
 NULL

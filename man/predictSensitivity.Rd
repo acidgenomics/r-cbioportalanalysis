@@ -7,10 +7,20 @@
 \usage{
 predictSensitivity(object, ...)
 
-\S4method{predictSensitivity}{MultiAssayExperiment}(object, upregulated, downregulated)
+\S4method{predictSensitivity}{MultiAssayExperiment}(
+  object,
+  experiment = "mrna_seq_v2_rsem_zscores_ref_all_samples",
+  upregulated,
+  downregulated
+)
 }
 \arguments{
 \item{object}{Object.}
+
+\item{experiment}{\code{character(1)}.
+Experiment name corresponding to RNA-seq zscores.
+We recommend using \code{"mrna_seq_rpkm_zscores_ref_all_samples"} for TCGA
+PanCancer datasets.}
 
 \item{upregulated}{\code{character}.
 Genes observed to be upregulated by treatment.}
