@@ -1,7 +1,7 @@
 #' Download all cBioPortal study data packs
 #'
 #' @export
-#' @note Updated 2023-05-09.
+#' @note Updated 2023-12-12.
 #'
 #' @param dir `character(1)`.
 #' Target directory.
