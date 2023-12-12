@@ -13,7 +13,10 @@ downloadAllPacks <- function(dir = getwd()) {
     studies <- sort(df[["studyId"]])
     ## Updated 2023-05-09.
     ## https://www.cbioportal.org/datasets
-    denylist <- character()
+    denylist <- c(
+        "es_dsrct_msk_2023",
+        "ilc_msk_2023"
+    )
     ## > denylist <- c(
     ## >     "bowel_colitis_msk_2022",
     ## >     "makeanimpact_ccr_2023",
