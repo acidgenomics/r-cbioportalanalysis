@@ -33,7 +33,8 @@ NULL
 
 # > #' @importFrom cBioPortalData cBioPortal getStudies
 
-#' @importFrom AcidBase basenameSansExt dupes initDir pasteUrl tempdir2 unlink2
+#' @importFrom AcidBase basenameSansExt download dupes initDir pasteUrl tempdir2
+#' unlink2
 #' @importFrom AcidCLI abort alert alertWarning toInlineString
 #' @importFrom AcidExperiment makeSummarizedExperiment
 #' @importFrom AcidGenomes NcbiGeneInfo
