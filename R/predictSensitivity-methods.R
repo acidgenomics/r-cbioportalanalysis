@@ -43,7 +43,7 @@ NULL
 
 
 
-## Updated 2023-12-11.
+## Updated 2024-02-28.
 `predictSensitivity,MAE` <- # nolint
     function(object,
              experiment,
@@ -63,8 +63,8 @@ NULL
             isScalarNumeric(sensitiveCutoff)
         )
         cd <- colData(object)
-        ## Currently uses patient ID instead of sample ID by default, which
-        ## is not the behavior we want.
+        ## Currently uses patient identifier instead of sample identifier by
+        ## default, which is not the behavior we want.
         rownames(cd) <- cd[["SAMPLE_ID"]]
         se <- experiments(object)[[experiment]]
         assert(
@@ -81,8 +81,25 @@ NULL
         if (all(is.na(rowData(se)[["geneId"]]))) {
             rowData(se)[["geneId"]] <- rowData(se)[["geneName"]]
         }
-        ## FIXME The TCGA dataset has NA gene names, need to resolve.
-        ## e.g. "sclc_ucologne_2015" dataset.
+        ## Drop genes with an identifier but no name/symbol. This is observed
+        ## with the "coadread_tcga_pan_can_atlas_2018" dataset.
+        if (any(is.na(rowData(se)[["geneName"]]))) {
+            ok <- !is.na(rowData(se)[["geneName"]])
+            badGenes <- rowData(se)[["geneId"]][!ok]
+            alertWarning(sprintf(
+                "Dropping %d unnamed gene %s from analysis: %s.",
+                length(badGenes),
+                ngettext(
+                    n = length(badGenes),
+                    msg1 = "identifier",
+                    msg2 = "identifiers"
+                ),
+                toInlineString(as.character(badGenes))
+            ))
+            se <- se[ok, , drop = FALSE]
+        }
+        ## Remove any duplicated genes. This is observed in the
+        ## "sclc_ucologne_2015" dataset.
         if (hasDuplicates(rowData(se)[["geneName"]])) {
             dupes <- dupes(rowData(se)[["geneName"]])
             alertWarning(sprintf(
@@ -167,7 +184,6 @@ NULL
             yes = "sensitive",
             no = "insensitive"
         )
-        ## FIXME Bind useful colData here.
         out <- DataFrame(
             "ds" = dsj,
             "dr" = drj,
@@ -175,6 +191,7 @@ NULL
             "prediction" = pred,
             row.names = colnames(se)
         )
+        out <- cbind(out, colData(se))
         ## Ensure we stash the user input in the output.
         metadata(out) <- list(
             "experiment" = experiment,
