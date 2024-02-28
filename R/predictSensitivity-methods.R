@@ -71,15 +71,6 @@ NULL
             is(se, "SummarizedExperiment"),
             isSubset(colnames(se), rownames(cd))
         )
-        ## Example we need to debug:
-        ## colnames of SummarizedExperiment
-        ## [1] "TCGA-3L-AA1B-01" "TCGA-4N-A93T-01"
-        ## [3] "TCGA-4T-AA8H-01" "TCGA-5M-AAT4-01"
-        ## [5] "TCGA-5M-AAT5-01" "TCGA-5M-AAT6-01"
-        ##
-        ## Rownames of colData:
-        ## [1] "TCGA-3L-AA1B" "TCGA-4N-A93T" "TCGA-4T-AA8H"
-        ## [4] "TCGA-5M-AAT4" "TCGA-5M-AAT5" "TCGA-5M-AAT6"
         colData(se) <- cd[colnames(se), , drop = FALSE]
         colnames(colData(se)) <- camelCase(colnames(colData(se)))
         colnames(rowData(se)) <- camelCase(colnames(rowData(se)))
@@ -90,6 +81,7 @@ NULL
         if (all(is.na(rowData(se)[["geneId"]]))) {
             rowData(se)[["geneId"]] <- rowData(se)[["geneName"]]
         }
+        ## FIXME The TCGA dataset has NA gene names, need to resolve.
         ## e.g. "sclc_ucologne_2015" dataset.
         if (hasDuplicates(rowData(se)[["geneName"]])) {
             dupes <- dupes(rowData(se)[["geneName"]])
