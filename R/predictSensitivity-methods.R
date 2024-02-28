@@ -1,3 +1,8 @@
+## FIXME Include a CLI message with the number and percentage of sensitive
+## hits out of the total number sampled.
+
+
+
 #' @name predictSensitivity
 #' @inherit AcidGenerics::predictSensitivity
 #' @note Updated 2024-02-28.
